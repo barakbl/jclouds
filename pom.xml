@@ -41,6 +41,7 @@
     <module>skeletons</module>
     <module>drivers</module>
     <module>scriptbuilder</module>
+    <module>tools</module>
     <module>allcompute</module>
     <module>allblobstore</module>
     <module>allloadbalancer</module>
