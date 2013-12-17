@@ -45,6 +45,7 @@
     <module>allblobstore</module>
     <module>allloadbalancer</module>
     <module>all</module>
+    <module>jclouds-tools</module>
   </modules>
   <build>
     <plugins>
