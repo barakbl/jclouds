@@ -57,6 +57,9 @@ public interface MutableObjectMetadata extends ObjectMetadata {
     */
    void setOwner(CanonicalUser owner);
 
+   /** Currently defaults to 'NONE'. */
+   void setServerSideEncryption(ServerSideEncryption serverSideEncryption);
+
    /**
     * Currently defaults to 'STANDARD' and not used.
     */

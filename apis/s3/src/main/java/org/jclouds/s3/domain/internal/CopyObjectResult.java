@@ -76,6 +76,11 @@ public class CopyObjectResult implements ObjectMetadata {
       return null;
    }
 
+   @Override
+   public ServerSideEncryption getServerSideEncryption() {
+      return null;
+   }
+
    /**
     *{@inheritDoc}
     */
