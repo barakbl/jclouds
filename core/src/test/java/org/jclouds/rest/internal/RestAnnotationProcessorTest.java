@@ -632,7 +632,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(new TestHttpRequestOptions().payload("fooya"))));
       assertRequestLineEquals(request, "POST http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "fooya", "application/unknown", false);
+      assertPayloadEquals(request, "fooya", null, false);
    }
 
    public void testHeaderAndQueryVarargs() throws Exception {
@@ -645,7 +645,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
                   new TestHttpRequestOptions().queryParams(ImmutableMultimap.of("key", "value")))));
       assertRequestLineEquals(request, "POST http://localhost:9999?key=value HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "X-header-1: fooya\n");
-      assertPayloadEquals(request, "fooya", "application/unknown", false);
+      assertPayloadEquals(request, "fooya", null, false);
    }
 
    public void testHeaderAndQueryVarargsPlusReq() throws Exception {
@@ -658,7 +658,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
                   new TestHttpRequestOptions().queryParams(ImmutableMultimap.of("key", "value")))));
       assertRequestLineEquals(request, "POST http://localhost:9999?key=value HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "X-header-1: fooya\n");
-      assertPayloadEquals(request, "fooya", "application/unknown", false);
+      assertPayloadEquals(request, "fooya", null, false);
    }
 
    public void testDuplicateHeaderAndQueryVarargs() throws Exception {
@@ -674,7 +674,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
                   new TestHttpRequestOptions().payload("last_payload_wins!"))));
       assertRequestLineEquals(request, "POST http://localhost:9999?key=value&key=anothervalue HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "X-header-1: fooya\nX-header-1: fooya again!\n");
-      assertPayloadEquals(request, "last_payload_wins!", "application/unknown", false);
+      assertPayloadEquals(request, "last_payload_wins!", null, false);
    }
 
    public class TestCustomMethod {
@@ -779,7 +779,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "POST http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "data", "application/unknown", false);
+      assertPayloadEquals(request, "data", null, false);
    }
 
    public void testCreatePostRequestNullOk1() throws Exception {
@@ -789,7 +789,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "POST http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, null, "application/unknown", false);
+      assertPayloadEquals(request, null, null, false);
    }
 
    public void testCreatePostRequestNullOk2() throws Exception {
@@ -799,7 +799,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "POST http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, null, "application/unknown", false);
+      assertPayloadEquals(request, null, null, false);
    }
 
    public void testCreatePostRequestNullNotOk1() throws Exception {
@@ -845,7 +845,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
                }
             })));
       assertRequestLineEquals(request, "POST http://localhost:9999/data HTTP/1.1");
-      assertPayloadEquals(request, "data", "application/unknown", false);
+      assertPayloadEquals(request, "data", null, false);
    }
 
    public void testCreatePostWithMethodBinder() throws Exception {
@@ -1793,7 +1793,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(new PayloadEnclosingImpl(newStringPayload("whoops")))));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", false);
+      assertPayloadEquals(request, "whoops", null, false);
    }
 
    public void testPutPayloadEnclosingGenerateMD5() throws Exception {
@@ -1808,7 +1808,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
 
-      assertPayloadEquals(request, "whoops", "application/unknown", true);
+      assertPayloadEquals(request, "whoops", null, true);
    }
 
    public void testPutInputStreamPayloadEnclosingGenerateMD5() throws SecurityException, NoSuchMethodException,
@@ -1825,7 +1825,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
 
-      assertPayloadEquals(request, "whoops", "application/unknown", true);
+      assertPayloadEquals(request, "whoops", null, true);
    }
 
    public void testPutPayloadChunkedNoContentLength() throws Exception {
@@ -1834,7 +1834,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(newStringPayload("whoops"))));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "Transfer-Encoding: chunked\n");
-      assertPayloadEquals(request, "whoops", "application/unknown", false);
+      assertPayloadEquals(request, "whoops", null, false);
    }
 
    public void testPutPayload() throws Exception {
@@ -1843,7 +1843,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(newStringPayload("whoops"))));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", false);
+      assertPayloadEquals(request, "whoops", null, false);
    }
 
    public void testPutPayloadContentDisposition() throws Exception {
@@ -1854,7 +1854,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", "attachment; filename=photo.jpg", null, null, false);
+      assertPayloadEquals(request, "whoops", null, "attachment; filename=photo.jpg", null, null, false);
    }
 
    public void testPutPayloadContentEncoding() throws Exception {
@@ -1865,7 +1865,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", null, "gzip", null, false);
+      assertPayloadEquals(request, "whoops", null, null, "gzip", null, false);
    }
 
    public void testPutPayloadContentLanguage() throws Exception {
@@ -1876,7 +1876,18 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", null, null, "en", false);
+      assertPayloadEquals(request, "whoops", null, null, null, "en", false);
+   }
+
+   public void testPutPayloadContentTest() throws Exception {
+      Invokable<?, ?> method = method(TestTransformers.class, "put", Payload.class);
+      Payload payload = newStringPayload("whoops");
+      payload.getContentMetadata().setContentType("audio/ogg");
+      GeneratedHttpRequest request = processor.apply(Invocation.create(method,
+            ImmutableList.<Object> of(payload)));
+      assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
+      assertNonPayloadHeadersEqual(request, "");
+      assertPayloadEquals(request, "whoops", "audio/ogg", null, null, null, false);
    }
 
    public void testPutPayloadWithGeneratedMD5AndNoContentType() throws SecurityException, NoSuchMethodException,
@@ -1891,7 +1902,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", true);
+      assertPayloadEquals(request, "whoops", null, true);
    }
 
    public void testPutInputStreamPayload() throws Exception {
@@ -1902,7 +1913,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", false);
+      assertPayloadEquals(request, "whoops", null, false);
    }
 
    public void testPutInputStreamPayloadWithMD5() throws NoSuchAlgorithmException, IOException, SecurityException,
@@ -1917,7 +1928,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
             ImmutableList.<Object> of(payload)));
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "whoops", "application/unknown", true);
+      assertPayloadEquals(request, "whoops", null, true);
    }
 
    public void testInputStream() throws SecurityException, NoSuchMethodException {
@@ -2114,7 +2125,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "PUT http://localhost:9999/1 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "Host: localhost:9999\n");
-      assertPayloadEquals(request, "foo", "application/unknown", false);
+      assertPayloadEquals(request, "foo", null, false);
    }
 
    @DataProvider(name = "strings")
@@ -2144,7 +2155,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "PUT http://localhost:9999/1 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "data", "application/unknown", false);
+      assertPayloadEquals(request, "data", null, false);
    }
 
    public void testCreatePutHeader() throws Exception {
@@ -2154,7 +2165,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "PUT http://localhost:9999/1 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "foo: --1--\n");
-      assertPayloadEquals(request, "data", "application/unknown", false);
+      assertPayloadEquals(request, "data", null, false);
    }
 
    public class TestVirtualHostMethod {
@@ -2343,7 +2354,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "PUT http://localhost:9999 HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "test", "application/unknown", false);
+      assertPayloadEquals(request, "test", null, false);
    }
 
    @Test
@@ -2354,7 +2365,7 @@ public class RestAnnotationProcessorTest extends BaseRestApiTest {
 
       assertRequestLineEquals(request, "PUT http://localhost:9999/rabble HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "");
-      assertPayloadEquals(request, "test", "application/unknown", false);
+      assertPayloadEquals(request, "test", null, false);
    }
 
    public class TestReplaceFormOptions extends BaseHttpRequestOptions {

@@ -119,7 +119,7 @@
 
 (deftest sign-put-test
   (let [request (sign-put blobstore-stub "container"
-                          (blob "path" :content-length 10))]
+                          (blob "path" :content-length 10 :content-type "application/unknown"))]
     (is (= "http://localhost/container/path" (str (.getEndpoint request))))
     (is (= "PUT" (.getMethod request)))
     (is (= "10" (first (.get (.getHeaders request) "Content-Length"))))

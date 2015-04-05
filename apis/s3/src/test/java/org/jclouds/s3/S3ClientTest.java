@@ -519,8 +519,10 @@ public abstract class S3ClientTest<T extends S3Client> extends BaseS3ClientTest<
 
    public void testAbortMultipartUpload() throws SecurityException, NegativeArraySizeException, NoSuchMethodException {
       Invokable<?, ?> method = method(S3Client.class, "abortMultipartUpload", String.class, String.class, String.class);
+      Payload payload = Payloads.newStringPayload("");
+      payload.getContentMetadata().setContentType("application/unknown");
       GeneratedHttpRequest request = processor.createRequest(method, ImmutableList.<Object> of("bucket", "foo", "asdsadasdas", 1,
-            Payloads.newStringPayload("")));
+            payload));
 
       assertRequestLineEquals(request, "DELETE https://bucket." + url + "/foo?uploadId=asdsadasdas HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "Host: bucket." + url + "\n");
@@ -536,8 +538,10 @@ public abstract class S3ClientTest<T extends S3Client> extends BaseS3ClientTest<
    public void testUploadPart() throws SecurityException, NegativeArraySizeException, NoSuchMethodException {
       Invokable<?, ?> method = method(S3Client.class, "uploadPart", String.class, String.class, int.class,
             String.class, Payload.class);
+      Payload payload = Payloads.newStringPayload("");
+      payload.getContentMetadata().setContentType("application/unknown");
       GeneratedHttpRequest request = processor.createRequest(method, ImmutableList.<Object> of("bucket", "foo", 1, "asdsadasdas",
-            Payloads.newStringPayload("")));
+            payload));
 
       assertRequestLineEquals(request, "PUT https://bucket." + url + "/foo?partNumber=1&uploadId=asdsadasdas HTTP/1.1");
       assertNonPayloadHeadersEqual(request, "Host: bucket." + url + "\n");

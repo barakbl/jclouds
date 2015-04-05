@@ -64,7 +64,7 @@ public class AWSS3ClientExpectTest extends BaseAWSS3ClientExpectTest {
                     .addHeader("x-amz-storage-class", "REDUCED_REDUNDANCY")
                     .addHeader("Host", "test.s3-eu-west-1.amazonaws.com")
                     .addHeader("Date", CONSTANT_DATE)
-                    .addHeader("Authorization", "AWS identity:1mJrW85/mqZpYTFIK5Ebtt2MM6E=")
+                    .addHeader("Authorization", "AWS identity:x0ms07iISQg8Y9telYxbXWD8gTc=")
                     .payload("content").build(),
          HttpResponse.builder()
                      .statusCode(200)

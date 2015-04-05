@@ -38,7 +38,7 @@ public class BindToStringPayloadTest {
       HttpRequest request = HttpRequest.builder().method("GET").endpoint("http://momma").build();
       request = binder.bindToRequest(request, ImmutableMap.of("imageName", "foo", "serverId", "2"));
       assertEquals(request.getPayload().getRawContent(), "{imageName=foo, serverId=2}");
-      assertEquals(request.getPayload().getContentMetadata().getContentType(), "application/unknown");
+      assertEquals(request.getPayload().getContentMetadata().getContentType(), null);
 
    }
 
@@ -49,7 +49,7 @@ public class BindToStringPayloadTest {
       HttpRequest request = HttpRequest.builder().method("GET").endpoint("http://momma").build();
       request = binder.bindToRequest(request, new File("foo"));
       assertEquals(request.getPayload().getRawContent(), "foo");
-      assertEquals(request.getPayload().getContentMetadata().getContentType(), "application/unknown");
+      assertEquals(request.getPayload().getContentMetadata().getContentType(), null);
 
    }
 

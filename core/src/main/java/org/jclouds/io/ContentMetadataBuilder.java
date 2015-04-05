@@ -31,7 +31,7 @@ public class ContentMetadataBuilder {
       return new ContentMetadataBuilder();
    }
 
-   protected String contentType = "application/unknown";
+   protected String contentType;
    protected Long contentLength;
    protected HashCode contentMD5;
    protected String contentDisposition;

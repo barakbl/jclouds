@@ -639,6 +639,7 @@ public class FilesystemBlobStoreTest {
         blobStore.createContainerInLocation(null, CONTAINER_NAME);
         Blob blob = blobStore.blobBuilder(BLOB_KEY)
            .payload(TestUtils.getImageForBlobPayload())
+           .contentType("application/unknown")
            .build();
         blobStore.putBlob(CONTAINER_NAME, blob);
 
