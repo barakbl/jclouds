@@ -32,6 +32,7 @@
   <modules>
     <module>gogrid</module>
     <module>azureblob</module>
+    <module>azure-queue-storage</module>
     <module>aws-s3</module>
     <module>aws-ec2</module>
     <module>aws-sqs</module>
