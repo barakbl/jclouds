@@ -42,4 +42,23 @@ public interface QueueApi {
     @Path("/?comp=list")
     ListQueueResponse list();
 
+    @Named("azure_storage_queue_delete")
+    @DELETE
+    @Path("/myqueue")
+    DeleteQueueResponse delete();
+
+    @Named("azure_storage_queue_get")
+    @GET
+    @Path("/myqueue/messages")
+    GetQueueResponse get();
+
+    @Named("azure_storage_queue_post")
+    @POST
+    @Path("/myqueue/messages")
+    PostQueueResponse post();
+
+    @Named("azure_storage_queue_get_service_properties")
+    @GET
+    @Path("/?restype=service&comp=properties")
+    GetQueueServicesResponse getService();
 }
