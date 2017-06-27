@@ -16,10 +16,12 @@
  */
 package org.jclouds.azure.storage.features;
 
-import org.jclouds.azure.storage.domain.CreateQueueResponse;
-import org.jclouds.azure.storage.domain.ListQueueResponse;
+import org.jclouds.azure.storage.domain.*;
 import org.jclouds.azure.storage.filters.SharedKeyLiteAuthentication;
+import org.jclouds.azure.storage.parser.ParseCreateQueueResponse;
+import org.jclouds.rest.annotations.JAXBResponseParser;
 import org.jclouds.rest.annotations.RequestFilters;
+import org.jclouds.rest.annotations.ResponseParser;
 
 import javax.inject.Named;
 import javax.ws.rs.*;
@@ -29,17 +31,18 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 @RequestFilters(SharedKeyLiteAuthentication.class)
 @Consumes(APPLICATION_JSON)
-@Produces(APPLICATION_XML)
 public interface QueueApi {
 
     @Named("azure_storage_queue_create")
     @PUT
     @Path("/{queueName}")
+    @ResponseParser(ParseCreateQueueResponse.class)
     CreateQueueResponse create(@PathParam("queueName") String queueName);
 
     @Named("azure_storage_queue_list")
     @GET
     @Path("/?comp=list")
+    @JAXBResponseParser
     ListQueueResponse list();
 
     @Named("azure_storage_queue_delete")

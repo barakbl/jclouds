@@ -18,6 +18,13 @@ package org.jclouds.azure.storage.domain;
 
 public class CreateQueueResponse {
 
-    // TODO how to do this if response only has header?
+    private boolean success;
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }
