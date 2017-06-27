@@ -14,14 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jclouds.azure.storage.parser;
 
-package org.jclouds.azure.storage;
+import com.google.common.base.Function;
+import org.jclouds.azure.storage.domain.DeleteQueueResponse;
+import org.jclouds.http.HttpResponse;
 
-import org.jclouds.azure.storage.features.QueueApi;
-import org.jclouds.rest.annotations.Delegate;
+import javax.inject.Singleton;
 
-public interface AzureStorageQueueApi {
 
-    @Delegate
-    QueueApi getQueueApi();
+public class ParseDeleteQueueResponse implements Function<HttpResponse, DeleteQueueResponse> {
+    @Override
+    public DeleteQueueResponse apply(HttpResponse httpResponse) {
+        DeleteQueueResponse response = new DeleteQueueResponse();
+        response.setSuccess(httpResponse.getStatusCode() == 204);
+        return response;
+    }
 }

@@ -16,8 +16,36 @@
  */
 package org.jclouds.azure.storage.domain;
 
-public class ListQueueResponse {
+import org.jclouds.azure.storage.domain.internals.EnumerationResults;
 
-    // TODO how xml map to this class? https://docs.microsoft.com/en-us/rest/api/storageservices/list-queues1
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
+@XmlRootElement(name = EnumerationResults.ROOT_ELEMENT)
+public class ListQueueResponse extends EnumerationResults {
+
+    public static class Queue {
+        @XmlElement
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    @XmlElement
+    private List<Queue> queues;
+
+    public List<Queue> getQueues() {
+        return queues;
+    }
+
+    public void setQueues(List<Queue> queues) {
+        this.queues = queues;
+    }
 }

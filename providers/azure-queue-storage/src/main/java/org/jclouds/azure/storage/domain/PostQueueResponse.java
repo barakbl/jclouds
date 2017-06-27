@@ -14,9 +14,86 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.jclouds.azure.storage.domain;
 
 
+import org.jclouds.azure.storage.domain.internals.EnumerationResults;
+
+import javax.ws.rs.POST;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+import java.util.List;
+
+@XmlRootElement(name = "QueueMessagesList")
 public class PostQueueResponse {
 
+    public static class QueueMessage {
+
+        @XmlElement
+        private String messageId;
+
+        public String getMessageId() {
+            return messageId;
+        }
+
+        public void setMessageId(String messageId) {
+            this.messageId = messageId;
+        }
+
+        @XmlElement
+        private Date insertionTime;
+
+        public Date getInsertionTime() {
+            return insertionTime;
+        }
+
+        public void setInsertionTime(Date insertionTime) {
+            this.insertionTime = insertionTime;
+        }
+
+        @XmlElement
+        private Date expirationTime;
+
+        public Date getExpirationTime() {
+            return expirationTime;
+        }
+
+        public void setExpirationTime(Date expirationTime) {
+            this.expirationTime = expirationTime;
+        }
+
+        @XmlElement
+        private String popReceipt;
+        public String getPopReceipt() {
+            return popReceipt;
+        }
+
+        public void setPopReceipt(String popReceipt) {
+            this.popReceipt = popReceipt;
+        }
+
+        @XmlElement
+        private Date timeNextVisible;
+
+        public Date getTimeNextVisible() {
+            return timeNextVisible;
+        }
+
+        public void setTimeNextVisible(Date timeNextVisible) {
+            this.timeNextVisible = timeNextVisible;
+        }
+    }
+
+    @XmlElement
+    private QueueMessage queueMessage;
+
+    public QueueMessage getQueueMessage() {
+        return queueMessage;
+    }
+
+    public void setQueueMessage(QueueMessage queueMessage) {
+        this.queueMessage = queueMessage;
+    }
 }

@@ -19,10 +19,8 @@ package org.jclouds.azure.storage;
 import org.jclouds.apis.ApiMetadata;
 import org.jclouds.rest.internal.BaseHttpApiMetadata;
 
-import java.util.Date;
 import java.util.Properties;
 
-import static org.jclouds.blobstore.reference.BlobStoreConstants.PROPERTY_USER_METADATA_PREFIX;
 
 public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
 
