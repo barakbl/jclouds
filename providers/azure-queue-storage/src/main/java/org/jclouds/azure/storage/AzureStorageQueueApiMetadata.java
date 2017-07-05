@@ -16,7 +16,10 @@
  */
 package org.jclouds.azure.storage;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.inject.Module;
 import org.jclouds.apis.ApiMetadata;
+import org.jclouds.azure.storage.config.AzureStorageQueueModule;
 import org.jclouds.rest.internal.BaseHttpApiMetadata;
 
 import java.util.Properties;
@@ -53,10 +56,8 @@ public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
                     .credentialName("Key")
 //                    .documentation(URI.create("https://www.backblaze.com/b2/docs/"))
                     .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties())
-                    .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/");
-//                    .defaultModules(ImmutableSet.<Class<? extends Module>>of(
-//                            B2HttpApiModule.class,
-//                            B2BlobStoreContextModule.class));
+                    .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/")
+                    .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class));
         }
 
         @Override
