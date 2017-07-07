@@ -22,14 +22,15 @@ import org.jclouds.apis.ApiMetadata;
 import org.jclouds.azure.storage.config.AzureStorageQueueModule;
 import org.jclouds.rest.internal.BaseHttpApiMetadata;
 
+import java.net.URI;
 import java.util.Properties;
 
 
 public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
 
     @Override
-    public ApiMetadata.Builder<?> toBuilder() {
-        return null;
+    public Builder toBuilder() {
+        return new Builder().fromApiMetadata(this);
     }
 
     public AzureStorageQueueApiMetadata() {
@@ -54,7 +55,7 @@ public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
                     .name("Azure Queue Storage")
                     .identityName("Account")
                     .credentialName("Key")
-//                    .documentation(URI.create("https://www.backblaze.com/b2/docs/"))
+                    .documentation(URI.create("https://docs.microsoft.com/en-us/rest/api/storageservices/queue-service-rest-api"))
                     .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties())
                     .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/")
                     .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class));
