@@ -20,14 +20,12 @@ import com.google.common.base.Function;
 import org.jclouds.azure.storage.domain.DeleteQueueResponse;
 import org.jclouds.http.HttpResponse;
 
-import javax.inject.Singleton;
-
 
 public class ParseDeleteQueueResponse implements Function<HttpResponse, DeleteQueueResponse> {
-    @Override
-    public DeleteQueueResponse apply(HttpResponse httpResponse) {
-        DeleteQueueResponse response = new DeleteQueueResponse();
-        response.setSuccess(httpResponse.getStatusCode() == 204);
-        return response;
-    }
+   @Override
+   public DeleteQueueResponse apply(HttpResponse httpResponse) {
+      DeleteQueueResponse response = new DeleteQueueResponse();
+      response.setSuccess(httpResponse.getStatusCode() == 204);
+      return response;
+   }
 }

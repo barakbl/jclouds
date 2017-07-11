@@ -17,22 +17,23 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache.jclouds</groupId>
-    <artifactId>jclouds-project</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
-    <relativePath>../../project/pom.xml</relativePath>
-  </parent>
-  <groupId>org.apache.jclouds.provider</groupId>
-  <artifactId>azure-queue-storage</artifactId>
-  <name>jclouds Azure Storage queue provider</name>
-  <description>jclouds components to access Azure queue storage Service</description>
-  <packaging>bundle</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.jclouds</groupId>
+        <artifactId>jclouds-project</artifactId>
+        <version>2.1.0-SNAPSHOT</version>
+        <relativePath>../../project/pom.xml</relativePath>
+    </parent>
+    <groupId>org.apache.jclouds.provider</groupId>
+    <artifactId>azure-queue-storage</artifactId>
+    <name>jclouds Azure Storage queue provider</name>
+    <description>jclouds components to access Azure queue storage Service</description>
+    <packaging>bundle</packaging>
 
-  <!---->
-  <!--<properties>-->
+    <!---->
+    <!--<properties>-->
     <!--<test.azureblob.endpoint>https://${jclouds.identity}.blob.core.windows.net</test.azureblob.endpoint>-->
     <!--<test.azureblob.api-version>2016-05-31</test.azureblob.api-version>-->
     <!--<test.azureblob.build-version />-->
@@ -41,72 +42,72 @@
 
     <!--<jclouds.osgi.export>org.jclouds.azureblob*;version="${project.version}",org.jclouds.azure.storage*;version="${project.version}"</jclouds.osgi.export>-->
     <!--<jclouds.osgi.import>org.jclouds*;version="${project.version}",*</jclouds.osgi.import>-->
-  <!--</properties>-->
+    <!--</properties>-->
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.jclouds</groupId>
-      <artifactId>jclouds-core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds</groupId>
-      <artifactId>jclouds-core</artifactId>
-      <version>${project.version}</version>
-      <type>test-jar</type>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.jclouds.driver</groupId>
-      <artifactId>jclouds-log4j</artifactId>
-      <version>${project.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp</groupId>
-      <artifactId>mockwebserver</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.auto.service</groupId>
-      <artifactId>auto-service</artifactId>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.jclouds</groupId>
+            <artifactId>jclouds-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jclouds</groupId>
+            <artifactId>jclouds-core</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.jclouds.driver</groupId>
+            <artifactId>jclouds-log4j</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 
-  <profiles>
-    <profile>
-      <id>live</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>integration</id>
-                <phase>integration-test</phase>
-                <goals>
-                  <goal>test</goal>
-                </goals>
-                <!--<configuration>-->
-                  <!--<systemPropertyVariables>-->
-                    <!--<test.azureblob.endpoint>${test.azureblob.endpoint}</test.azureblob.endpoint>-->
-                    <!--<test.azureblob.api-version>${test.azureblob.api-version}</test.azureblob.api-version>-->
-                    <!--<test.azureblob.build-version>${test.azureblob.build-version}</test.azureblob.build-version>-->
-                    <!--<test.azureblob.identity>${test.azureblob.identity}</test.azureblob.identity>-->
-                    <!--<test.azureblob.credential>${test.azureblob.credential}</test.azureblob.credential>-->
-                    <!--<jclouds.blobstore.httpstream.url>${jclouds.blobstore.httpstream.url}</jclouds.blobstore.httpstream.url>-->
-                    <!--<jclouds.blobstore.httpstream.md5>${jclouds.blobstore.httpstream.md5}</jclouds.blobstore.httpstream.md5>-->
-                  <!--</systemPropertyVariables>-->
-                <!--</configuration>-->
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <id>live</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>integration</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <!--<configuration>-->
+                                <!--<systemPropertyVariables>-->
+                                <!--<test.azureblob.endpoint>${test.azureblob.endpoint}</test.azureblob.endpoint>-->
+                                <!--<test.azureblob.api-version>${test.azureblob.api-version}</test.azureblob.api-version>-->
+                                <!--<test.azureblob.build-version>${test.azureblob.build-version}</test.azureblob.build-version>-->
+                                <!--<test.azureblob.identity>${test.azureblob.identity}</test.azureblob.identity>-->
+                                <!--<test.azureblob.credential>${test.azureblob.credential}</test.azureblob.credential>-->
+                                <!--<jclouds.blobstore.httpstream.url>${jclouds.blobstore.httpstream.url}</jclouds.blobstore.httpstream.url>-->
+                                <!--<jclouds.blobstore.httpstream.md5>${jclouds.blobstore.httpstream.md5}</jclouds.blobstore.httpstream.md5>-->
+                                <!--</systemPropertyVariables>-->
+                                <!--</configuration>-->
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
 

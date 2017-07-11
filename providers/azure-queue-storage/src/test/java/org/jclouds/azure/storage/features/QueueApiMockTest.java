@@ -14,31 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.b2.features;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import org.jclouds.ContextBuilder;
-import org.jclouds.azure.storage.AzureStorageQueueApi;
-import org.jclouds.azure.storage.features.QueueApi;
-import org.jclouds.concurrent.config.ExecutorServiceModule;
-import org.testng.annotations.Test;
+package org.jclouds.azure.storage.features;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.inject.Module;
-import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
-import com.squareup.okhttp.mockwebserver.RecordedRequest;
+import org.jclouds.ContextBuilder;
+import org.jclouds.azure.storage.AzureStorageQueueApi;
+import org.jclouds.concurrent.config.ExecutorServiceModule;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
+import java.util.Set;
 
 @Test(groups = "unit", testName = "QueueApiMockTest")
 public final class QueueApiMockTest {
@@ -55,6 +45,17 @@ public final class QueueApiMockTest {
       }
    }
 
+   public void testCreate() throws Exception {
+      MockWebServer server = createMockWebServer();
+
+      try {
+         QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
+         api.create("create-name");
+      } finally {
+         server.shutdown();
+      }
+   }
+
    static MockWebServer createMockWebServer() throws IOException {
       MockWebServer server = new MockWebServer();
       server.play();
@@ -63,15 +64,15 @@ public final class QueueApiMockTest {
    }
 
    static AzureStorageQueueApi api(String uri, String provider, Properties overrides) {
-       Set<Module> modules = ImmutableSet.<Module> of(
-             new ExecutorServiceModule(MoreExecutors.sameThreadExecutor()));
+      Set<Module> modules = ImmutableSet.<Module>of(
+              new ExecutorServiceModule(MoreExecutors.sameThreadExecutor()));
 
       return ContextBuilder.newBuilder(provider)
-            .credentials("ACCOUNT_ID", "APPLICATION_KEY")
-            .endpoint(uri)
-            .overrides(overrides)
-            .modules(modules)
-            .buildApi(AzureStorageQueueApi.class);
+              .credentials("ACCOUNT_ID", "APPLICATION_KEY")
+              .endpoint(uri)
+              .overrides(overrides)
+              .modules(modules)
+              .buildApi(AzureStorageQueueApi.class);
    }
 
    static AzureStorageQueueApi api(String uri, String provider) {

@@ -8,7 +8,4 @@ import org.jclouds.rest.config.HttpApiModule;
 public class AzureStorageQueueModule extends HttpApiModule<AzureStorageQueueApi> {
 
 
-
-
-
 }

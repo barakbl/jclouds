@@ -21,10 +21,10 @@ import org.jclouds.http.functions.ParseSax;
 
 /**
  * Parses the error from the Amazon S3 REST API.
- * 
+ *
  * @see <a
- *      href="http://docs.amazonwebservices.com/AmazonS3/2006-03-01/index.html?UsingRESTError.html"
- *      />
+ * href="http://docs.amazonwebservices.com/AmazonS3/2006-03-01/index.html?UsingRESTError.html"
+ * />
  */
 public class ErrorHandler extends ParseSax.HandlerWithResult<AzureStorageError> {
 

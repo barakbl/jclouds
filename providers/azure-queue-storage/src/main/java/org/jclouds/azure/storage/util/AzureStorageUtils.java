@@ -16,11 +16,6 @@
  */
 package org.jclouds.azure.storage.util;
 
-import java.io.InputStream;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-
 import org.jclouds.azure.storage.domain.AzureStorageError;
 import org.jclouds.azure.storage.filters.SharedKeyLiteAuthentication;
 import org.jclouds.azure.storage.reference.AzureStorageHeaders;
@@ -29,6 +24,10 @@ import org.jclouds.http.HttpCommand;
 import org.jclouds.http.HttpException;
 import org.jclouds.http.HttpResponse;
 import org.jclouds.http.functions.ParseSax;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
+import java.io.InputStream;
 
 /**
  * Encryption, Hashing, and IO Utilities needed to sign and verify Azure Storage requests and
@@ -46,7 +45,7 @@ public class AzureStorageUtils {
    Provider<ErrorHandler> errorHandlerProvider;
 
    public AzureStorageError parseAzureStorageErrorFromContent(HttpCommand command,
-            HttpResponse response, InputStream content) throws HttpException {
+                                                              HttpResponse response, InputStream content) throws HttpException {
       AzureStorageError error = factory.create(errorHandlerProvider.get()).parse(content);
       error.setRequestId(response.getFirstHeaderOrNull(AzureStorageHeaders.REQUEST_ID));
       if ("AuthenticationFailed".equals(error.getCode())) {

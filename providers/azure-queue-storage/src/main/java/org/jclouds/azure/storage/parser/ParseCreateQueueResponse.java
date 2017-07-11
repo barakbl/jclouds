@@ -8,10 +8,10 @@ import javax.inject.Singleton;
 
 @Singleton
 public class ParseCreateQueueResponse implements Function<HttpResponse, CreateQueueResponse> {
-    @Override
-    public CreateQueueResponse apply(HttpResponse httpResponse) {
-        CreateQueueResponse response = new CreateQueueResponse();
-        response.setSuccess(httpResponse.getStatusCode() == 201);
-        return response;
-    }
+   @Override
+   public CreateQueueResponse apply(HttpResponse httpResponse) {
+      CreateQueueResponse response = new CreateQueueResponse();
+      response.setSuccess(httpResponse.getStatusCode() == 201);
+      return response;
+   }
 }

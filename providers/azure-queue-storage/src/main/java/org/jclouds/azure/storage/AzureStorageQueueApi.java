@@ -17,13 +17,13 @@
 
 package org.jclouds.azure.storage;
 
-import java.io.Closeable;
-
 import org.jclouds.azure.storage.features.QueueApi;
 import org.jclouds.rest.annotations.Delegate;
 
+import java.io.Closeable;
+
 public interface AzureStorageQueueApi extends Closeable {
 
-    @Delegate
-    QueueApi getQueueApi();
+   @Delegate
+   QueueApi getQueueApi();
 }

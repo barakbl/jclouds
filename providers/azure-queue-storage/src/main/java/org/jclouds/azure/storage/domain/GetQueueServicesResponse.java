@@ -18,186 +18,182 @@
 package org.jclouds.azure.storage.domain;
 
 
-import org.jclouds.azure.storage.domain.internals.EnumerationResults;
-import javax.ws.rs.GET;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
-import java.util.List;
 
 @XmlRootElement(name = "StorageServiceProperties")
 public class GetQueueServicesResponse {
 
-    public static class Logging {
-        @XmlElement
-        private float version;
+   public static class Logging {
+      @XmlElement
+      private float version;
 
-        public float getVersion() {
-            return version;
-        }
+      public float getVersion() {
+         return version;
+      }
 
-        public void setVersion(float version) {
-            this.version = version;
-        }
+      public void setVersion(float version) {
+         this.version = version;
+      }
 
-        @XmlElement
-        private boolean delete;
+      @XmlElement
+      private boolean delete;
 
-        public boolean isDelete() {
-            return delete;
-        }
+      public boolean isDelete() {
+         return delete;
+      }
 
-        public void setDelete(boolean delete) {
-            this.delete = delete;
-        }
+      public void setDelete(boolean delete) {
+         this.delete = delete;
+      }
 
-        @XmlElement
-        private boolean read;
+      @XmlElement
+      private boolean read;
 
-        public boolean isRead() {
-            return read;
-        }
+      public boolean isRead() {
+         return read;
+      }
 
-        public void setRead(boolean read) {
-            this.read = read;
-        }
+      public void setRead(boolean read) {
+         this.read = read;
+      }
 
-        @XmlElement
-        private boolean write;
+      @XmlElement
+      private boolean write;
 
-        public boolean isWrite() {
-            return write;
-        }
+      public boolean isWrite() {
+         return write;
+      }
 
-        public void setWrite(boolean write) {
-            this.write = write;
-        }
+      public void setWrite(boolean write) {
+         this.write = write;
+      }
 
-        public static class RetentionPolicy {
-            @XmlElement
-            private boolean enable;
+      public static class RetentionPolicy {
+         @XmlElement
+         private boolean enable;
 
-            public boolean isEnable() {
-                return enable;
-            }
-
-            public void setEnable(boolean enable) {
-                this.enable = enable;
-            }
-
-            @XmlElement
-            private int days;
-
-            public int getDays() {
-                return days;
-            }
-
-            public void setDays(int days) {
-                this.days = days;
-            }
-        }
-
-        @XmlElement
-        private RetentionPolicy retentionPolicy;
-
-        public RetentionPolicy getRetentionPolicy() {
-            return retentionPolicy;
-        }
-
-        public void setRetentionPolicy(RetentionPolicy retentionPolicy) {
-            this.retentionPolicy = retentionPolicy;
-        }
-    }
-
-    @XmlElement
-    private Logging logging;
-
-    public Logging getLogging() {
-        return logging;
-    }
-
-    public void setLogging(Logging logging) {
-        this.logging = logging;
-    }
-
-    public static class Metrics {
-        @XmlElement
-        private float version;
-
-        public float getVersion() {
-            return version;
-        }
-
-        public void setVersion(float version) {
-            this.version = version;
-        }
-
-        @XmlElement
-        private boolean enable;
-
-        public boolean isEnable() {
+         public boolean isEnable() {
             return enable;
-        }
+         }
 
-        public void setEnable(boolean enable) {
+         public void setEnable(boolean enable) {
             this.enable = enable;
-        }
+         }
 
-        @XmlElement
-        private boolean includeAPIs;
+         @XmlElement
+         private int days;
 
-        public boolean isIncludeAPIs() {
-            return includeAPIs;
-        }
+         public int getDays() {
+            return days;
+         }
 
-        public void setIncludeAPIs(boolean includeAPIs) {
-            this.includeAPIs = includeAPIs;
-        }
+         public void setDays(int days) {
+            this.days = days;
+         }
+      }
 
-        public static class RetentionPolicy {
-            @XmlElement
-            private boolean enable;
+      @XmlElement
+      private RetentionPolicy retentionPolicy;
 
-            public boolean isEnable() {
-                return enable;
-            }
+      public RetentionPolicy getRetentionPolicy() {
+         return retentionPolicy;
+      }
 
-            public void setEnable(boolean enable) {
-                this.enable = enable;
-            }
+      public void setRetentionPolicy(RetentionPolicy retentionPolicy) {
+         this.retentionPolicy = retentionPolicy;
+      }
+   }
 
-            @XmlElement
-            private int days;
+   @XmlElement
+   private Logging logging;
 
-            public int getDays() {
-                return days;
-            }
+   public Logging getLogging() {
+      return logging;
+   }
 
-            public void setDays(int days) {
-                this.days = days;
-            }
-        }
+   public void setLogging(Logging logging) {
+      this.logging = logging;
+   }
 
-        @XmlElement
-        private RetentionPolicy retentionPolicy;
+   public static class Metrics {
+      @XmlElement
+      private float version;
 
-        public RetentionPolicy getRetentionPolicy() {
-            return retentionPolicy;
-        }
+      public float getVersion() {
+         return version;
+      }
 
-        public void setRetentionPolicy(RetentionPolicy retentionPolicy) {
-            this.retentionPolicy = retentionPolicy;
-        }
-    }
+      public void setVersion(float version) {
+         this.version = version;
+      }
 
-    @XmlElement
-    private Metrics metrics;
+      @XmlElement
+      private boolean enable;
 
-    public Metrics getMetrics() {
-        return metrics;
-    }
+      public boolean isEnable() {
+         return enable;
+      }
 
-    public void setMetrics(Metrics metrics) {
-        this.metrics = metrics;
-    }
+      public void setEnable(boolean enable) {
+         this.enable = enable;
+      }
+
+      @XmlElement
+      private boolean includeAPIs;
+
+      public boolean isIncludeAPIs() {
+         return includeAPIs;
+      }
+
+      public void setIncludeAPIs(boolean includeAPIs) {
+         this.includeAPIs = includeAPIs;
+      }
+
+      public static class RetentionPolicy {
+         @XmlElement
+         private boolean enable;
+
+         public boolean isEnable() {
+            return enable;
+         }
+
+         public void setEnable(boolean enable) {
+            this.enable = enable;
+         }
+
+         @XmlElement
+         private int days;
+
+         public int getDays() {
+            return days;
+         }
+
+         public void setDays(int days) {
+            this.days = days;
+         }
+      }
+
+      @XmlElement
+      private RetentionPolicy retentionPolicy;
+
+      public RetentionPolicy getRetentionPolicy() {
+         return retentionPolicy;
+      }
+
+      public void setRetentionPolicy(RetentionPolicy retentionPolicy) {
+         this.retentionPolicy = retentionPolicy;
+      }
+   }
+
+   @XmlElement
+   private Metrics metrics;
+
+   public Metrics getMetrics() {
+      return metrics;
+   }
+
+   public void setMetrics(Metrics metrics) {
+      this.metrics = metrics;
+   }
 }

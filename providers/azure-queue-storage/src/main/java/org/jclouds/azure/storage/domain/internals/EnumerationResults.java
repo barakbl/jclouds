@@ -7,49 +7,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public abstract class EnumerationResults {
 
-    public static final String ROOT_ELEMENT = "EnumerationResults";
+   public static final String ROOT_ELEMENT = "EnumerationResults";
 
-    @XmlAttribute
-    private String serviceEndpoint;
+   @XmlAttribute
+   private String serviceEndpoint;
 
-    @XmlElement
-    private String prefix;
+   @XmlElement
+   private String prefix;
 
-    @XmlElement
-    private String marker;
+   @XmlElement
+   private String marker;
 
-    @XmlElement
-    private int maxResults;
+   @XmlElement
+   private int maxResults;
 
-    public String getServiceEndpoint() {
-        return serviceEndpoint;
-    }
+   public String getServiceEndpoint() {
+      return serviceEndpoint;
+   }
 
-    public void setServiceEndpoint(String serviceEndpoint) {
-        this.serviceEndpoint = serviceEndpoint;
-    }
+   public void setServiceEndpoint(String serviceEndpoint) {
+      this.serviceEndpoint = serviceEndpoint;
+   }
 
-    public String getPrefix() {
-        return prefix;
-    }
+   public String getPrefix() {
+      return prefix;
+   }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+   public void setPrefix(String prefix) {
+      this.prefix = prefix;
+   }
 
-    public String getMarker() {
-        return marker;
-    }
+   public String getMarker() {
+      return marker;
+   }
 
-    public void setMarker(String marker) {
-        this.marker = marker;
-    }
+   public void setMarker(String marker) {
+      this.marker = marker;
+   }
 
-    public int getMaxResults() {
-        return maxResults;
-    }
+   public int getMaxResults() {
+      return maxResults;
+   }
 
-    public void setMaxResults(int maxResults) {
-        this.maxResults = maxResults;
-    }
+   public void setMaxResults(int maxResults) {
+      this.maxResults = maxResults;
+   }
 }

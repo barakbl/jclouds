@@ -16,21 +16,16 @@
  */
 package org.jclouds.azure.storage.filters;
 
-import static com.google.common.io.BaseEncoding.base64;
-import static com.google.common.io.ByteStreams.readBytes;
-import static org.jclouds.crypto.Macs.asByteProcessor;
-import static org.jclouds.util.Patterns.NEWLINE_PATTERN;
-import static org.jclouds.util.Strings2.toInputStream;
-
-import java.util.Collection;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Provider;
-import javax.inject.Singleton;
-
+import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Strings;
+import com.google.common.base.Supplier;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
+import com.google.common.collect.Multimaps;
+import com.google.common.collect.Sets;
+import com.google.common.io.ByteProcessor;
+import com.google.common.net.HttpHeaders;
 import org.jclouds.Constants;
 import org.jclouds.crypto.Crypto;
 import org.jclouds.date.TimeStamp;
@@ -43,20 +38,23 @@ import org.jclouds.http.internal.SignatureWire;
 import org.jclouds.logging.Logger;
 import org.jclouds.util.Strings2;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Strings;
-import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMap.Builder;
-import com.google.common.collect.Multimaps;
-import com.google.common.collect.Sets;
-import com.google.common.io.ByteProcessor;
-import com.google.common.net.HttpHeaders;
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Provider;
+import javax.inject.Singleton;
+import java.util.Collection;
+import java.util.Set;
+
+import static com.google.common.io.BaseEncoding.base64;
+import static com.google.common.io.ByteStreams.readBytes;
+import static org.jclouds.crypto.Macs.asByteProcessor;
+import static org.jclouds.util.Patterns.NEWLINE_PATTERN;
+import static org.jclouds.util.Strings2.toInputStream;
 
 /**
  * Signs the Azure Storage request.
- * 
+ *
  * @see <a href= "http://msdn.microsoft.com/en-us/library/dd179428.aspx" />
  */
 @Singleton
@@ -75,8 +73,8 @@ public class SharedKeyLiteAuthentication implements HttpRequestFilter {
 
    @Inject
    public SharedKeyLiteAuthentication(SignatureWire signatureWire,
-         @org.jclouds.location.Provider Supplier<Credentials> creds, @TimeStamp Provider<String> timeStampProvider,
-         Crypto crypto, HttpUtils utils) {
+                                      @org.jclouds.location.Provider Supplier<Credentials> creds, @TimeStamp Provider<String> timeStampProvider,
+                                      Crypto crypto, HttpUtils utils) {
       this.crypto = crypto;
       this.utils = utils;
       this.signatureWire = signatureWire;
@@ -94,8 +92,8 @@ public class SharedKeyLiteAuthentication implements HttpRequestFilter {
 
    HttpRequest replaceAuthorizationHeader(HttpRequest request, String signature) {
       return request.toBuilder()
-            .replaceHeader(HttpHeaders.AUTHORIZATION, "SharedKeyLite " + creds.get().identity + ":" + signature)
-            .build();
+              .replaceHeader(HttpHeaders.AUTHORIZATION, "SharedKeyLite " + creds.get().identity + ":" + signature)
+              .build();
    }
 
    HttpRequest replaceDateHeader(HttpRequest request) {
@@ -122,11 +120,11 @@ public class SharedKeyLiteAuthentication implements HttpRequestFilter {
 
    private void appendPayloadMetadata(HttpRequest request, StringBuilder buffer) {
       buffer.append(
-            HttpUtils.nullToEmpty(request.getPayload() == null ? null : request.getPayload().getContentMetadata()
-                  .getContentMD5())).append("\n");
+              HttpUtils.nullToEmpty(request.getPayload() == null ? null : request.getPayload().getContentMetadata()
+                      .getContentMD5())).append("\n");
       buffer.append(
-            Strings.nullToEmpty(request.getPayload() == null ? null : request.getPayload().getContentMetadata()
-                  .getContentType())).append("\n");
+              Strings.nullToEmpty(request.getPayload() == null ? null : request.getPayload().getContentMetadata()
+                      .getContentType())).append("\n");
    }
 
    public String calculateSignature(String toSign) throws HttpException {

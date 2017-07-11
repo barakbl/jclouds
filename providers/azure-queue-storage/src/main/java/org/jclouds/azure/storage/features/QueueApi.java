@@ -27,41 +27,40 @@ import javax.inject.Named;
 import javax.ws.rs.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 @RequestFilters(SharedKeyLiteAuthentication.class)
 @Consumes(APPLICATION_JSON)
 public interface QueueApi {
 
-    @Named("azure_storage_queue_create")
-    @PUT
-    @Path("/{queueName}")
-    @ResponseParser(ParseCreateQueueResponse.class)
-    CreateQueueResponse create(@PathParam("queueName") String queueName);
+   @Named("azure_storage_queue_create")
+   @PUT
+   @Path("/{queueName}")
+   @ResponseParser(ParseCreateQueueResponse.class)
+   CreateQueueResponse create(@PathParam("queueName") String queueName);
 
-    @Named("azure_storage_queue_list")
-    @GET
-    @Path("/?comp=list")
-    @JAXBResponseParser
-    ListQueueResponse list();
+   @Named("azure_storage_queue_list")
+   @GET
+   @Path("/?comp=list")
+   @JAXBResponseParser
+   ListQueueResponse list();
 
-    @Named("azure_storage_queue_delete")
-    @DELETE
-    @Path("/myqueue")
-    DeleteQueueResponse delete();
+   @Named("azure_storage_queue_delete")
+   @DELETE
+   @Path("/myqueue")
+   DeleteQueueResponse delete();
 
-    @Named("azure_storage_queue_get")
-    @GET
-    @Path("/myqueue/messages")
-    GetQueueResponse get();
+   @Named("azure_storage_queue_get")
+   @GET
+   @Path("/myqueue/messages")
+   GetQueueResponse get();
 
-    @Named("azure_storage_queue_post")
-    @POST
-    @Path("/myqueue/messages")
-    PostQueueResponse post();
+   @Named("azure_storage_queue_post")
+   @POST
+   @Path("/myqueue/messages")
+   PostQueueResponse post();
 
-    @Named("azure_storage_queue_get_service_properties")
-    @GET
-    @Path("/?restype=service&comp=properties")
-    GetQueueServicesResponse getService();
+   @Named("azure_storage_queue_get_service_properties")
+   @GET
+   @Path("/?restype=service&comp=properties")
+   GetQueueServicesResponse getService();
 }

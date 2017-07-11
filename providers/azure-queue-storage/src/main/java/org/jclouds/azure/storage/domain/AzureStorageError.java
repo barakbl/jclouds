@@ -16,9 +16,9 @@
  */
 package org.jclouds.azure.storage.domain;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
+
+import java.util.Map;
 
 /**
  * When an Azure Storage request is in error, the client receives an error response.

@@ -25,27 +25,27 @@ import java.util.List;
 @XmlRootElement(name = EnumerationResults.ROOT_ELEMENT)
 public class ListQueueResponse extends EnumerationResults {
 
-    public static class Queue {
-        @XmlElement
-        private String name;
+   public static class Queue {
+      @XmlElement
+      private String name;
 
-        public String getName() {
-            return name;
-        }
+      public String getName() {
+         return name;
+      }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
+      public void setName(String name) {
+         this.name = name;
+      }
+   }
 
-    @XmlElement
-    private List<Queue> queues;
+   @XmlElement
+   private List<Queue> queues;
 
-    public List<Queue> getQueues() {
-        return queues;
-    }
+   public List<Queue> getQueues() {
+      return queues;
+   }
 
-    public void setQueues(List<Queue> queues) {
-        this.queues = queues;
-    }
+   public void setQueues(List<Queue> queues) {
+      this.queues = queues;
+   }
 }

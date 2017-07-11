@@ -28,52 +28,52 @@ import java.util.Properties;
 
 public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
 
-    @Override
-    public Builder toBuilder() {
-        return new Builder().fromApiMetadata(this);
-    }
+   @Override
+   public Builder toBuilder() {
+      return new Builder().fromApiMetadata(this);
+   }
 
-    public AzureStorageQueueApiMetadata() {
-        this(new Builder());
-    }
+   public AzureStorageQueueApiMetadata() {
+      this(new Builder());
+   }
 
-    protected AzureStorageQueueApiMetadata(Builder builder) {
-        super(builder);
-    }
+   protected AzureStorageQueueApiMetadata(Builder builder) {
+      super(builder);
+   }
 
-    public static Properties defaultProperties() {
-        Properties properties = BaseHttpApiMetadata.defaultProperties();
-        properties.setProperty("x-ms-version", "2016-05-31");
-        return properties;
-    }
+   public static Properties defaultProperties() {
+      Properties properties = BaseHttpApiMetadata.defaultProperties();
+      properties.setProperty("x-ms-version", "2016-05-31");
+      return properties;
+   }
 
-    public static class Builder extends BaseHttpApiMetadata.Builder<AzureStorageQueueApi, Builder> {
+   public static class Builder extends BaseHttpApiMetadata.Builder<AzureStorageQueueApi, Builder> {
 
-        protected Builder() {
-            super(AzureStorageQueueApi.class);
-            id("azure-queue-storage")
-                    .name("Azure Queue Storage")
-                    .identityName("Account")
-                    .credentialName("Key")
-                    .documentation(URI.create("https://docs.microsoft.com/en-us/rest/api/storageservices/queue-service-rest-api"))
-                    .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties())
-                    .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/")
-                    .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class));
-        }
+      protected Builder() {
+         super(AzureStorageQueueApi.class);
+         id("azure-queue-storage")
+                 .name("Azure Queue Storage")
+                 .identityName("Account")
+                 .credentialName("Key")
+                 .documentation(URI.create("https://docs.microsoft.com/en-us/rest/api/storageservices/queue-service-rest-api"))
+                 .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties())
+                 .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/")
+                 .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class));
+      }
 
-        @Override
-        public AzureStorageQueueApiMetadata build() {
-            return new AzureStorageQueueApiMetadata(this);
-        }
+      @Override
+      public AzureStorageQueueApiMetadata build() {
+         return new AzureStorageQueueApiMetadata(this);
+      }
 
-        @Override
-        protected Builder self() {
-            return this;
-        }
+      @Override
+      protected Builder self() {
+         return this;
+      }
 
-        @Override
-        public Builder fromApiMetadata(ApiMetadata in) {
-            return this;
-        }
-    }
+      @Override
+      public Builder fromApiMetadata(ApiMetadata in) {
+         return this;
+      }
+   }
 }

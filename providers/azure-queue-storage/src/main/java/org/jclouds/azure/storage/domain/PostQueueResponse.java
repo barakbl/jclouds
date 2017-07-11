@@ -18,82 +18,79 @@
 package org.jclouds.azure.storage.domain;
 
 
-import org.jclouds.azure.storage.domain.internals.EnumerationResults;
-
-import javax.ws.rs.POST;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
-import java.util.List;
 
 @XmlRootElement(name = "QueueMessagesList")
 public class PostQueueResponse {
 
-    public static class QueueMessage {
+   public static class QueueMessage {
 
-        @XmlElement
-        private String messageId;
+      @XmlElement
+      private String messageId;
 
-        public String getMessageId() {
-            return messageId;
-        }
+      public String getMessageId() {
+         return messageId;
+      }
 
-        public void setMessageId(String messageId) {
-            this.messageId = messageId;
-        }
+      public void setMessageId(String messageId) {
+         this.messageId = messageId;
+      }
 
-        @XmlElement
-        private Date insertionTime;
+      @XmlElement
+      private Date insertionTime;
 
-        public Date getInsertionTime() {
-            return insertionTime;
-        }
+      public Date getInsertionTime() {
+         return insertionTime;
+      }
 
-        public void setInsertionTime(Date insertionTime) {
-            this.insertionTime = insertionTime;
-        }
+      public void setInsertionTime(Date insertionTime) {
+         this.insertionTime = insertionTime;
+      }
 
-        @XmlElement
-        private Date expirationTime;
+      @XmlElement
+      private Date expirationTime;
 
-        public Date getExpirationTime() {
-            return expirationTime;
-        }
+      public Date getExpirationTime() {
+         return expirationTime;
+      }
 
-        public void setExpirationTime(Date expirationTime) {
-            this.expirationTime = expirationTime;
-        }
+      public void setExpirationTime(Date expirationTime) {
+         this.expirationTime = expirationTime;
+      }
 
-        @XmlElement
-        private String popReceipt;
-        public String getPopReceipt() {
-            return popReceipt;
-        }
+      @XmlElement
+      private String popReceipt;
 
-        public void setPopReceipt(String popReceipt) {
-            this.popReceipt = popReceipt;
-        }
+      public String getPopReceipt() {
+         return popReceipt;
+      }
 
-        @XmlElement
-        private Date timeNextVisible;
+      public void setPopReceipt(String popReceipt) {
+         this.popReceipt = popReceipt;
+      }
 
-        public Date getTimeNextVisible() {
-            return timeNextVisible;
-        }
+      @XmlElement
+      private Date timeNextVisible;
 
-        public void setTimeNextVisible(Date timeNextVisible) {
-            this.timeNextVisible = timeNextVisible;
-        }
-    }
+      public Date getTimeNextVisible() {
+         return timeNextVisible;
+      }
 
-    @XmlElement
-    private QueueMessage queueMessage;
+      public void setTimeNextVisible(Date timeNextVisible) {
+         this.timeNextVisible = timeNextVisible;
+      }
+   }
 
-    public QueueMessage getQueueMessage() {
-        return queueMessage;
-    }
+   @XmlElement
+   private QueueMessage queueMessage;
 
-    public void setQueueMessage(QueueMessage queueMessage) {
-        this.queueMessage = queueMessage;
-    }
+   public QueueMessage getQueueMessage() {
+      return queueMessage;
+   }
+
+   public void setQueueMessage(QueueMessage queueMessage) {
+      this.queueMessage = queueMessage;
+   }
 }

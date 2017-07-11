@@ -16,50 +16,50 @@
  */
 package org.jclouds.azure.storage;
 
-import java.util.Properties;
-
 import com.google.auto.service.AutoService;
 import org.jclouds.providers.ProviderMetadata;
 import org.jclouds.providers.internal.BaseProviderMetadata;
 
+import java.util.Properties;
+
 @AutoService(ProviderMetadata.class)
 public final class AzureStorageQueueProviderMetadata extends BaseProviderMetadata {
-    @Override
-    public Builder toBuilder() {
-        return new Builder().fromProviderMetadata(this);
-    }
+   @Override
+   public Builder toBuilder() {
+      return new Builder().fromProviderMetadata(this);
+   }
 
-    public AzureStorageQueueProviderMetadata() {
-        this(new Builder());
-    }
+   public AzureStorageQueueProviderMetadata() {
+      this(new Builder());
+   }
 
-    protected AzureStorageQueueProviderMetadata(Builder builder) {
-        super(builder);
-    }
+   protected AzureStorageQueueProviderMetadata(Builder builder) {
+      super(builder);
+   }
 
-    public static Properties defaultProperties() {
-        Properties properties = AzureStorageQueueApiMetadata.defaultProperties();
-        return properties;
-    }
+   public static Properties defaultProperties() {
+      Properties properties = AzureStorageQueueApiMetadata.defaultProperties();
+      return properties;
+   }
 
-    public static class Builder extends BaseProviderMetadata.Builder {
+   public static class Builder extends BaseProviderMetadata.Builder {
 
-        protected Builder() {
-            id("azure-queue-storage")
-                    .name("Azure Queue Storage")
-                    .apiMetadata(new AzureStorageQueueApiMetadata())
-                    .endpoint("https://${jclouds.identity}.queue.core.windows.net/")
-                    .defaultProperties(AzureStorageQueueProviderMetadata.defaultProperties());
-        }
+      protected Builder() {
+         id("azure-queue-storage")
+                 .name("Azure Queue Storage")
+                 .apiMetadata(new AzureStorageQueueApiMetadata())
+                 .endpoint("https://${jclouds.identity}.queue.core.windows.net/")
+                 .defaultProperties(AzureStorageQueueProviderMetadata.defaultProperties());
+      }
 
-        @Override
-        public AzureStorageQueueProviderMetadata build() {
-            return new AzureStorageQueueProviderMetadata(this);
-        }
+      @Override
+      public AzureStorageQueueProviderMetadata build() {
+         return new AzureStorageQueueProviderMetadata(this);
+      }
 
-        @Override
-        public Builder fromProviderMetadata(ProviderMetadata in) {
-            return this;
-        }
-    }
+      @Override
+      public Builder fromProviderMetadata(ProviderMetadata in) {
+         return this;
+      }
+   }
 }
