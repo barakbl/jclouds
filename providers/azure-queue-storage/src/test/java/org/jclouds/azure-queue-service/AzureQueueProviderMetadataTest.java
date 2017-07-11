@@ -14,16 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.jclouds.azure.storage;
 
-import java.io.Closeable;
+import org.jclouds.providers.internal.BaseProviderMetadataTest;
+import org.testng.annotations.Test;
 
-import org.jclouds.azure.storage.features.QueueApi;
-import org.jclouds.rest.annotations.Delegate;
-
-public interface AzureStorageQueueApi extends Closeable {
-
-    @Delegate
-    QueueApi getQueueApi();
+@Test(groups = "unit", testName = "AzureQueueProviderMetadataTest")
+public final class AzureQueueProviderMetadataTest extends BaseProviderMetadataTest {
+   public AzureQueueProviderMetadataTest() {
+      super(new AzureStorageQueueProviderMetadata(), new AzureStorageQueueApiMetadata());
+   }
 }

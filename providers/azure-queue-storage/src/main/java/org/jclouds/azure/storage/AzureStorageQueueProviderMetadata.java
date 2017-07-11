@@ -16,6 +16,11 @@
  */
 package org.jclouds.azure.storage;
 
+<<<<<<< HEAD
+=======
+import java.util.Properties;
+
+>>>>>>> a1570e15dc340f17ba9a959c34e6272c113690eb
 import com.google.auto.service.AutoService;
 import org.jclouds.providers.ProviderMetadata;
 import org.jclouds.providers.internal.BaseProviderMetadata;
@@ -35,6 +40,14 @@ public final class AzureStorageQueueProviderMetadata extends BaseProviderMetadat
         super(builder);
     }
 
+<<<<<<< HEAD
+=======
+    public static Properties defaultProperties() {
+        Properties properties = AzureStorageQueueApiMetadata.defaultProperties();
+        return properties;
+    }
+
+>>>>>>> a1570e15dc340f17ba9a959c34e6272c113690eb
     public static class Builder extends BaseProviderMetadata.Builder {
 
         protected Builder() {
@@ -42,8 +55,12 @@ public final class AzureStorageQueueProviderMetadata extends BaseProviderMetadat
                     .name("Azure Queue Storage")
                     .apiMetadata(new AzureStorageQueueApiMetadata())
                     .endpoint("https://${jclouds.identity}.queue.core.windows.net/")
+<<<<<<< HEAD
                     .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties());
 //                    .defaultProperties(B2ProviderMetadata.defaultProperties());
+=======
+                    .defaultProperties(AzureStorageQueueProviderMetadata.defaultProperties());
+>>>>>>> a1570e15dc340f17ba9a959c34e6272c113690eb
         }
 
         @Override
