@@ -38,19 +38,19 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 final class AzureQueueTestUtils {
-   static QueueApi api(String uri, String provider, Properties overrides) {
+   static AzureStorageQueueApi api(String uri, String provider, Properties overrides) {
       Set<Module> modules = ImmutableSet.<Module> of(
               new ExecutorServiceModule(MoreExecutors.sameThreadExecutor()));
 
       return ContextBuilder.newBuilder(provider)
-              .credentials("ACCOUNT_ID", "APPLICATION_KEY")
+              .credentials("jclouds", "NH+KqygOYN9cy6jcYwoqY4P77F62TWzP2c8ef+0AmespWPhK0UW/HoH8vsqhC44qLTdNgnKSqyVzbtBTaZXEpQ==")
               .endpoint(uri)
               .overrides(overrides)
               .modules(modules)
-              .buildApi(QueueApi.class);
+              .buildApi(AzureStorageQueueApi.class);
    }
 
-   static QueueApi api(String uri, String provider) {
+   static AzureStorageQueueApi api(String uri, String provider) {
       return api(uri, provider, new Properties());
    }
 
@@ -59,15 +59,6 @@ final class AzureQueueTestUtils {
       server.play();
       URL url = server.getUrl("");
       return server;
-   }
-
-   static void assertAuthentication(MockWebServer server) {
-      assertThat(server.getRequestCount()).isGreaterThanOrEqualTo(1);
-      try {
-         assertThat(server.takeRequest().getRequestLine()).isEqualTo("GET /b2api/v1/b2_authorize_account HTTP/1.1"); // What's the authentication string for AzureQueue?
-      } catch (InterruptedException e) {
-         throw Throwables.propagate(e);
-      }
    }
 
    /**

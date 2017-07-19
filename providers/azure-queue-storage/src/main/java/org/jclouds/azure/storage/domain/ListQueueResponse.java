@@ -18,6 +18,8 @@ package org.jclouds.azure.storage.domain;
 
 import org.jclouds.azure.storage.domain.internals.EnumerationResults;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -26,25 +28,25 @@ import java.util.List;
 public class ListQueueResponse extends EnumerationResults {
 
    public static class Queue {
-      @XmlElement
       private String name;
 
       public String getName() {
          return name;
       }
 
+      @XmlElement(name = "Name")
       public void setName(String name) {
          this.name = name;
       }
    }
 
-   @XmlElement
    private List<Queue> queues;
 
    public List<Queue> getQueues() {
       return queues;
    }
 
+   @XmlElement(name = "Queues")
    public void setQueues(List<Queue> queues) {
       this.queues = queues;
    }

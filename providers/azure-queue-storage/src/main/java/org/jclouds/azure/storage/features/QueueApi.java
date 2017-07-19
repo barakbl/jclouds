@@ -26,11 +26,12 @@ import org.jclouds.rest.annotations.ResponseParser;
 import javax.inject.Named;
 import javax.ws.rs.*;
 
+import java.io.Closeable;
+
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @RequestFilters(SharedKeyLiteAuthentication.class)
-@Consumes(APPLICATION_JSON)
-public interface QueueApi {
+public interface QueueApi extends Closeable{
 
    @Named("azure_storage_queue_create")
    @PUT

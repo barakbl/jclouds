@@ -18,12 +18,40 @@ package org.jclouds.azure.storage.features;
 
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
+import org.jclouds.azure.storage.domain.CreateQueueResponse;
+import org.jclouds.azure.storage.domain.ListQueueResponse;
 import org.testng.annotations.Test;
 
-@Test(groups = "unit", testName = "BucketApiMockTest")
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.jclouds.azure.storage.features.AzureQueueTestUtils.*;
+
+
+@Test(groups = "unit", testName = "AzureQueueApiMockTest")
 public class AzureQueueApiMockTest {
    public void testCreate() throws Exception {
       MockWebServer server = createMockWebServer();
-
+      server.enqueue(new MockResponse().setResponseCode(201));
+      try {
+         QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
+         CreateQueueResponse response = api.create("1");
+         assertThat(response.isSuccess()).isTrue();
+      } finally {
+         server.shutdown();
+      }
    }
+   public void testList() throws Exception {
+      MockWebServer server = createMockWebServer();
+      server.enqueue(new MockResponse().setBody(stringFromResource("/list_queue_response.xml")));
+
+      try {
+         QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
+         ListQueueResponse response = api.list();
+
+         assertRequest(server.takeRequest(), "GET", "/b2api/v1/b2_list_queues", "/list_queues_request.json");
+      } finally {
+         server.shutdown();
+      }
+   }
+
+
 }

@@ -1,30 +1,25 @@
 package org.jclouds.azure.storage.domain.internals;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
-@XmlRootElement
 public abstract class EnumerationResults {
 
    public static final String ROOT_ELEMENT = "EnumerationResults";
 
-   @XmlAttribute
+
    private String serviceEndpoint;
 
-   @XmlElement
    private String prefix;
 
-   @XmlElement
    private String marker;
 
-   @XmlElement
    private int maxResults;
 
    public String getServiceEndpoint() {
       return serviceEndpoint;
    }
 
+   @XmlAttribute( name = "ServiceEndpoint")
    public void setServiceEndpoint(String serviceEndpoint) {
       this.serviceEndpoint = serviceEndpoint;
    }
@@ -33,6 +28,7 @@ public abstract class EnumerationResults {
       return prefix;
    }
 
+   @XmlElement
    public void setPrefix(String prefix) {
       this.prefix = prefix;
    }
@@ -41,6 +37,7 @@ public abstract class EnumerationResults {
       return marker;
    }
 
+   @XmlElement
    public void setMarker(String marker) {
       this.marker = marker;
    }
@@ -49,6 +46,7 @@ public abstract class EnumerationResults {
       return maxResults;
    }
 
+   @XmlElement
    public void setMaxResults(int maxResults) {
       this.maxResults = maxResults;
    }
