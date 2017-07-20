@@ -19,6 +19,7 @@ package org.jclouds.azure.storage.features;
 import org.jclouds.azure.storage.domain.*;
 import org.jclouds.azure.storage.filters.SharedKeyLiteAuthentication;
 import org.jclouds.azure.storage.parser.ParseCreateQueueResponse;
+import org.jclouds.azure.storage.parser.ParseDeleteQueueResponse;
 import org.jclouds.rest.annotations.JAXBResponseParser;
 import org.jclouds.rest.annotations.RequestFilters;
 import org.jclouds.rest.annotations.ResponseParser;
@@ -48,6 +49,7 @@ public interface QueueApi extends Closeable{
    @Named("azure_storage_queue_delete")
    @DELETE
    @Path("/myqueue")
+   @ResponseParser(ParseDeleteQueueResponse.class)
    DeleteQueueResponse delete();
 
    @Named("azure_storage_queue_get")

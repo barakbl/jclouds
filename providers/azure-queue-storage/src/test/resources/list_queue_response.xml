@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnumerationResults AccountName="https://jcloudsazure.queue.core.windows.net/">
-<Queues>
-<Queue>
-<QueueName>myqueue</QueueName>
-<Url>https://jcloudsazure.queue.core.windows.net/myqueue</Url>
-</Queue>
-<Queue>
-<QueueName>myqueue1</QueueName>
-<Url>https://jcloudsazure.queue.core.windows.net/myqueue1</Url>
-</Queue>
-<Queue>
-<QueueName>myqueue2</QueueName>
-<Url>https://jcloudsazure.queue.core.windows.net/myqueue2</Url>
-</Queue>
-</Queues>
-<NextMarker />
+    <Queues>
+        <Queue>
+            <QueueName>myqueue</QueueName>
+            <Url>https://jcloudsazure.queue.core.windows.net/myqueue</Url>
+        </Queue>
+        <Queue>
+            <QueueName>myqueue1</QueueName>
+            <Url>https://jcloudsazure.queue.core.windows.net/myqueue1</Url>
+        </Queue>
+        <Queue>
+            <QueueName>myqueue2</QueueName>
+            <Url>https://jcloudsazure.queue.core.windows.net/myqueue2</Url>
+        </Queue>
+    </Queues>
+    <NextMarker/>
 </EnumerationResults>

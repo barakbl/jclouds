@@ -19,6 +19,8 @@ package org.jclouds.azure.storage.features;
 import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 import org.jclouds.azure.storage.domain.CreateQueueResponse;
+import org.jclouds.azure.storage.domain.DeleteQueueResponse;
+import org.jclouds.azure.storage.domain.GetQueueResponse;
 import org.jclouds.azure.storage.domain.ListQueueResponse;
 import org.testng.annotations.Test;
 
@@ -39,6 +41,19 @@ public class AzureQueueApiMockTest {
          server.shutdown();
       }
    }
+
+   public void testDelete() throws Exception {
+      MockWebServer server = createMockWebServer();
+      server.enqueue(new MockResponse().setResponseCode(204));
+      try {
+         QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
+         DeleteQueueResponse response = api.delete();
+         assertThat(response.isSuccess()).isTrue();
+      } finally {
+         server.shutdown();
+      }
+   }
+
    public void testList() throws Exception {
       MockWebServer server = createMockWebServer();
       server.enqueue(new MockResponse().setBody(stringFromResource("/list_queue_response.xml")));
@@ -47,7 +62,9 @@ public class AzureQueueApiMockTest {
          QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
          ListQueueResponse response = api.list();
 
-         assertRequest(server.takeRequest(), "GET", "/b2api/v1/b2_list_queues", "/list_queues_request.json");
+         assertThat(response.getQueues().size()).isEqualTo(3);
+         assertThat(response.getQueues().get(0).getName()).isEqualTo("myqueue");
+         assertThat(response.getQueues().get(0).getUrl()).isEqualTo("https://jcloudsazure.queue.core.windows.net/myqueue");
       } finally {
          server.shutdown();
       }

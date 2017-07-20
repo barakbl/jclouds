@@ -16,38 +16,49 @@
  */
 package org.jclouds.azure.storage.domain;
 
-import org.jclouds.azure.storage.domain.internals.EnumerationResults;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = EnumerationResults.ROOT_ELEMENT)
-public class ListQueueResponse extends EnumerationResults {
+@XmlRootElement(name = "EnumerationResults")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ListQueueResponse {
 
+   @XmlRootElement(name = "Queue")
+   @XmlAccessorType(XmlAccessType.FIELD)
    public static class Queue {
+      @XmlElement(name = "QueueName")
       private String name;
+
+      @XmlElement(name = "Url")
+      private String url;
 
       public String getName() {
          return name;
       }
 
-      @XmlElement(name = "Name")
       public void setName(String name) {
          this.name = name;
       }
+
+      public String getUrl() {
+         return url;
+      }
+
+      public void setUrl(String url) {
+         this.url = url;
+      }
    }
 
+   @XmlElementWrapper(name="Queues")
+   @XmlElement(name = "Queue")
    private List<Queue> queues;
 
    public List<Queue> getQueues() {
       return queues;
    }
 
-   @XmlElement(name = "Queues")
    public void setQueues(List<Queue> queues) {
       this.queues = queues;
    }
+
 }

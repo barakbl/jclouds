@@ -43,7 +43,7 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
       QueueApi queueApi= api.getQueueApi();
       CreateQueueResponse response = queueApi.create(queueName);
       try{
-         assertThat(response).isEqualTo(1);
+         assertThat(response).isEqualTo(201);
       }finally {
          queueApi.delete();
       }
@@ -54,7 +54,7 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
       QueueApi queueApi= api.getQueueApi();
       queueApi.create(queueName);
       DeleteQueueResponse response = queueApi.delete();
-      assertThat(response).isEqualTo(1);
+      assertThat(response).isEqualTo(204);
    }
 
    @Test(groups = "live")
@@ -64,11 +64,11 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
       try {
          boolean found = false;
          ListQueueResponse queues = queueApi.list();
-         for (ListQueueResponse.Queue queue : queues.getQueues()){
-            if (queue.getName().equals(queueName)) {
-               found = true;
-            }
-         }
+//         for (ListQueueResponse.Queue queue : queues..getQueues()){
+//            if (queue.getName().equals(queueName)) {
+//               found = true;
+//            }
+//         }
          assertThat(found).isTrue();
       } finally {
          queueApi.delete();
