@@ -55,15 +55,18 @@ public interface QueueApi extends Closeable{
    @Named("azure_storage_queue_get")
    @GET
    @Path("/myqueue/messages")
+   @JAXBResponseParser
    GetQueueResponse get();
 
    @Named("azure_storage_queue_post")
    @POST
    @Path("/myqueue/messages")
+   @JAXBResponseParser
    PostQueueResponse post();
 
    @Named("azure_storage_queue_get_service_properties")
    @GET
    @Path("/?restype=service&comp=properties")
+   @JAXBResponseParser
    GetQueueServicesResponse getService();
 }

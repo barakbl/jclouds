@@ -69,6 +69,16 @@ public class AzureQueueApiMockTest {
          server.shutdown();
       }
    }
+   public void testGet() throws Exception {
+      MockWebServer server = createMockWebServer();
+      server.enqueue(new MockResponse().setBody(stringFromResource("/get_queue_response.xml")));
 
+      try{
+         QueueApi api = api(server.getUrl("/").toString(), "azure-queue-storage").getQueueApi();
+         GetQueueResponse response = api.get();
 
+      } finally {
+         server.shutdown();
+      }
+   }
 }

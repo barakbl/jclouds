@@ -17,13 +17,18 @@
 package org.jclouds.azure.storage.domain;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @XmlRootElement(name = "QueueMessagesList")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GetQueueResponse {
 
+   @XmlRootElement(name = "QueueMessage")
+   @XmlAccessorType(XmlAccessType.FIELD)
    public static class QueueMessage {
       @XmlElement
       private String messageId;
