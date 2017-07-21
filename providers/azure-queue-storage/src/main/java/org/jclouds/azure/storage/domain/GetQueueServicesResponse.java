@@ -15,17 +15,23 @@
  * limitations under the License.
  */
 
-package org.jclouds.azure.storage.domain;
+/*package org.jclouds.azure.storage.domain;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 @XmlRootElement(name = "StorageServiceProperties")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GetQueueServicesResponse {
 
+   @XmlRootElement(name = "Logging")
+   @XmlAccessorType(XmlAccessType.FIELD)
    public static class Logging {
-      @XmlElement
+      @XmlElement(name="Version")
       private float version;
 
       public float getVersion() {
@@ -36,7 +42,7 @@ public class GetQueueServicesResponse {
          this.version = version;
       }
 
-      @XmlElement
+      @XmlElement(name="Delete")
       private boolean delete;
 
       public boolean isDelete() {
@@ -47,7 +53,7 @@ public class GetQueueServicesResponse {
          this.delete = delete;
       }
 
-      @XmlElement
+      @XmlElement(name="Read")
       private boolean read;
 
       public boolean isRead() {
@@ -58,7 +64,7 @@ public class GetQueueServicesResponse {
          this.read = read;
       }
 
-      @XmlElement
+      @XmlElement(name="Write")
       private boolean write;
 
       public boolean isWrite() {
@@ -69,8 +75,10 @@ public class GetQueueServicesResponse {
          this.write = write;
       }
 
+      @XmlRootElement(name = "RetentionPolicy")
+      @XmlAccessorType(XmlAccessType.FIELD)
       public static class RetentionPolicy {
-         @XmlElement
+         @XmlElement(name="Enable")
          private boolean enable;
 
          public boolean isEnable() {
@@ -81,7 +89,7 @@ public class GetQueueServicesResponse {
             this.enable = enable;
          }
 
-         @XmlElement
+         @XmlElement(name="Days")
          private int days;
 
          public int getDays() {
@@ -93,7 +101,7 @@ public class GetQueueServicesResponse {
          }
       }
 
-      @XmlElement
+      @XmlElement(name="RetentionPolicy")
       private RetentionPolicy retentionPolicy;
 
       public RetentionPolicy getRetentionPolicy() {
@@ -105,7 +113,7 @@ public class GetQueueServicesResponse {
       }
    }
 
-   @XmlElement
+   @XmlElement (name = "Logging")
    private Logging logging;
 
    public Logging getLogging() {
@@ -116,8 +124,10 @@ public class GetQueueServicesResponse {
       this.logging = logging;
    }
 
+   @XmlRootElement (name="Metrics")
+   @XmlAccessorType(XmlAccessType.FIELD)
    public static class Metrics {
-      @XmlElement
+      @XmlElement (name = "Version")
       private float version;
 
       public float getVersion() {
@@ -128,7 +138,7 @@ public class GetQueueServicesResponse {
          this.version = version;
       }
 
-      @XmlElement
+      @XmlElement (name = "Enable")
       private boolean enable;
 
       public boolean isEnable() {
@@ -139,7 +149,7 @@ public class GetQueueServicesResponse {
          this.enable = enable;
       }
 
-      @XmlElement
+      @XmlElement (name = "IncludeAPIs")
       private boolean includeAPIs;
 
       public boolean isIncludeAPIs() {
@@ -150,8 +160,10 @@ public class GetQueueServicesResponse {
          this.includeAPIs = includeAPIs;
       }
 
+      @XmlRootElement(name="RetentionPolicy")
+      @XmlAccessorType(XmlAccessType.FIELD)
       public static class RetentionPolicy {
-         @XmlElement
+         @XmlElement (name = "Enable")
          private boolean enable;
 
          public boolean isEnable() {
@@ -162,7 +174,7 @@ public class GetQueueServicesResponse {
             this.enable = enable;
          }
 
-         @XmlElement
+         @XmlElement (name = "Days")
          private int days;
 
          public int getDays() {
@@ -174,7 +186,7 @@ public class GetQueueServicesResponse {
          }
       }
 
-      @XmlElement
+      @XmlElement(name="RetentionPolicy")
       private RetentionPolicy retentionPolicy;
 
       public RetentionPolicy getRetentionPolicy() {
@@ -186,7 +198,7 @@ public class GetQueueServicesResponse {
       }
    }
 
-   @XmlElement
+   @XmlElement(name="Metrics")
    private Metrics metrics;
 
    public Metrics getMetrics() {
@@ -196,4 +208,4 @@ public class GetQueueServicesResponse {
    public void setMetrics(Metrics metrics) {
       this.metrics = metrics;
    }
-}
+} */

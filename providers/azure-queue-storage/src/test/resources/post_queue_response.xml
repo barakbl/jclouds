@@ -1,0 +1,9 @@
+<QueueMessagesList>
+    <QueueMessage>
+        <MessageId>string-message-id</MessageId>
+        <InsertionTime>insertion-time</InsertionTime>
+        <ExpirationTime>expiration-time</ExpirationTime>
+        <PopReceipt>opaque-string-receipt-data</PopReceipt>
+        <TimeNextVisible>time-next-visible</TimeNextVisible>
+    </QueueMessage>
+</QueueMessagesList>

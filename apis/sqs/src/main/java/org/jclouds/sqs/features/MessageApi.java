@@ -16,28 +16,12 @@
  */
 package org.jclouds.sqs.features;
 
-import static org.jclouds.sqs.reference.SQSParameters.ACTION;
-import static org.jclouds.sqs.reference.SQSParameters.VERSION;
-
-import java.util.Map;
-
-import javax.inject.Named;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Table;
 import org.jclouds.Constants;
 import org.jclouds.Fallbacks.VoidOnNotFoundOr404;
 import org.jclouds.aws.filters.FormSigner;
-import org.jclouds.rest.annotations.BinderParam;
-import org.jclouds.rest.annotations.Fallback;
-import org.jclouds.rest.annotations.FormParams;
-import org.jclouds.rest.annotations.MapBinder;
-import org.jclouds.rest.annotations.PayloadParam;
-import org.jclouds.rest.annotations.RequestFilters;
-import org.jclouds.rest.annotations.ResponseParser;
-import org.jclouds.rest.annotations.VirtualHost;
-import org.jclouds.rest.annotations.XMLResponseParser;
+import org.jclouds.rest.annotations.*;
 import org.jclouds.sqs.binders.BindChangeMessageVisibilityBatchRequestEntryToIndexedFormParams;
 import org.jclouds.sqs.binders.BindDeleteMessageBatchRequestEntryToIndexedFormParams;
 import org.jclouds.sqs.binders.BindSendMessageBatchRequestEntryToIndexedFormParams;
@@ -47,15 +31,16 @@ import org.jclouds.sqs.domain.Message;
 import org.jclouds.sqs.domain.MessageIdAndMD5;
 import org.jclouds.sqs.options.ReceiveMessageOptions;
 import org.jclouds.sqs.options.SendMessageOptions;
-import org.jclouds.sqs.xml.ChangeMessageVisibilityBatchResponseHandler;
-import org.jclouds.sqs.xml.DeleteMessageBatchResponseHandler;
-import org.jclouds.sqs.xml.MessageHandler;
-import org.jclouds.sqs.xml.ReceiveMessageResponseHandler;
-import org.jclouds.sqs.xml.RegexMessageIdAndMD5Handler;
-import org.jclouds.sqs.xml.SendMessageBatchResponseHandler;
+import org.jclouds.sqs.xml.*;
 
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Table;
+import javax.inject.Named;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import java.util.Map;
+
+import static org.jclouds.sqs.reference.SQSParameters.ACTION;
+import static org.jclouds.sqs.reference.SQSParameters.VERSION;
 
 /**
  * Provides access to SQS via their REST API.

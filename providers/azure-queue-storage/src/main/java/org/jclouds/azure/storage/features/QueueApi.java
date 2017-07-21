@@ -20,19 +20,14 @@ import org.jclouds.azure.storage.domain.*;
 import org.jclouds.azure.storage.filters.SharedKeyLiteAuthentication;
 import org.jclouds.azure.storage.parser.ParseCreateQueueResponse;
 import org.jclouds.azure.storage.parser.ParseDeleteQueueResponse;
-import org.jclouds.rest.annotations.JAXBResponseParser;
-import org.jclouds.rest.annotations.RequestFilters;
-import org.jclouds.rest.annotations.ResponseParser;
+import org.jclouds.rest.annotations.*;
 
 import javax.inject.Named;
 import javax.ws.rs.*;
-
 import java.io.Closeable;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
 @RequestFilters(SharedKeyLiteAuthentication.class)
-public interface QueueApi extends Closeable{
+public interface QueueApi extends AbstractQueueApi {
 
    @Named("azure_storage_queue_create")
    @PUT
@@ -48,25 +43,26 @@ public interface QueueApi extends Closeable{
 
    @Named("azure_storage_queue_delete")
    @DELETE
-   @Path("/myqueue")
+   @Path("/{queueName}")
    @ResponseParser(ParseDeleteQueueResponse.class)
-   DeleteQueueResponse delete();
+   DeleteQueueResponse delete(@PathParam("queueName") String queueName);
 
    @Named("azure_storage_queue_get")
    @GET
-   @Path("/myqueue/messages")
+   @Path("/{queueName}/messages")
    @JAXBResponseParser
-   GetQueueResponse get();
+   GetQueueResponse get(@PathParam("queueName") String queueName, @QueryParam("numofmessages") int numofmessages);
 
    @Named("azure_storage_queue_post")
    @POST
-   @Path("/myqueue/messages")
+   @Path("/{queueName}/messages")
+   @Payload("<QueueMessage><MessageText>{message-content}</MessageText></QueueMessage>")
    @JAXBResponseParser
-   PostQueueResponse post();
+   PostQueueResponse post(@PathParam("queueName") String queueName, @PayloadParam("message-content") String content);
 
-   @Named("azure_storage_queue_get_service_properties")
-   @GET
-   @Path("/?restype=service&comp=properties")
-   @JAXBResponseParser
-   GetQueueServicesResponse getService();
+   //@Named("azure_storage_queue_get_service_properties")
+   //@GET
+   //@Path("/?restype=service&comp=properties")
+   //@JAXBResponseParser
+   //GetQueueServicesResponse getService();
 }

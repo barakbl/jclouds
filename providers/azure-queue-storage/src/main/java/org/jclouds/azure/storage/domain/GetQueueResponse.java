@@ -17,105 +17,23 @@
 package org.jclouds.azure.storage.domain;
 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import org.jclouds.azure.storage.domain.internals.QueueMessage;
+
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 @XmlRootElement(name = "QueueMessagesList")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GetQueueResponse {
 
-   @XmlRootElement(name = "QueueMessage")
-   @XmlAccessorType(XmlAccessType.FIELD)
-   public static class QueueMessage {
-      @XmlElement
-      private String messageId;
+   @XmlElement(name = "QueueMessage")
+   private List<QueueMessage> queueMessage;
 
-      public String getMessageId() {
-         return messageId;
-      }
-
-      public void setMessageId(String messageId) {
-         this.messageId = messageId;
-      }
-
-      @XmlElement
-      private Date insertionTime;
-
-      public Date getInsertionTime() {
-         return insertionTime;
-      }
-
-      public void setInsertionTime(Date insertionTime) {
-         this.insertionTime = insertionTime;
-      }
-
-      @XmlElement
-      private Date expirationTime;
-
-      public Date getExpirationTime() {
-         return expirationTime;
-      }
-
-      public void setExpirationTime(Date expirationTime) {
-         this.expirationTime = expirationTime;
-      }
-
-      @XmlElement
-      private String popReceipt;
-
-      public String getPopReceipt() {
-         return popReceipt;
-      }
-
-      public void setPopReceipt(String popReceipt) {
-         this.popReceipt = popReceipt;
-      }
-
-      @XmlElement
-      private Date timeNextVisible;
-
-      public Date getTimeNextVisible() {
-         return timeNextVisible;
-      }
-
-      public void setTimeNextVisible(Date timeNextVisible) {
-         this.timeNextVisible = timeNextVisible;
-      }
-
-      @XmlElement
-      private int dequeueCount;
-
-      public int getDequeueCount() {
-         return dequeueCount;
-      }
-
-      public void setDequeueCount(int dequeueCount) {
-         this.dequeueCount = dequeueCount;
-      }
-
-      @XmlElement
-      private String messageText;
-
-      public String getMessageText() {
-         return messageText;
-      }
-
-      public void setMessageText(String messageText) {
-         this.messageText = messageText;
-      }
-   }
-
-   @XmlElement
-   private QueueMessage queueMessage;
-
-   public QueueMessage getQueueMessage() {
+   public List<QueueMessage> getQueueMessage() {
       return queueMessage;
    }
 
-   public void setQueueMessage(QueueMessage queueMessage) {
+   public void setQueueMessage(List<QueueMessage> queueMessage) {
       this.queueMessage = queueMessage;
    }
 }

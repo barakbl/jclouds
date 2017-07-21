@@ -17,80 +17,25 @@
 
 package org.jclouds.azure.storage.domain;
 
+import org.jclouds.azure.storage.domain.internals.QueueMessage;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.*;
+
 
 @XmlRootElement(name = "QueueMessagesList")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PostQueueResponse {
 
-   public static class QueueMessage {
+   @XmlElement(name = "QueueMessage")
+   private List<QueueMessage> queueMessage;
 
-      @XmlElement
-      private String messageId;
-
-      public String getMessageId() {
-         return messageId;
-      }
-
-      public void setMessageId(String messageId) {
-         this.messageId = messageId;
-      }
-
-      @XmlElement
-      private Date insertionTime;
-
-      public Date getInsertionTime() {
-         return insertionTime;
-      }
-
-      public void setInsertionTime(Date insertionTime) {
-         this.insertionTime = insertionTime;
-      }
-
-      @XmlElement
-      private Date expirationTime;
-
-      public Date getExpirationTime() {
-         return expirationTime;
-      }
-
-      public void setExpirationTime(Date expirationTime) {
-         this.expirationTime = expirationTime;
-      }
-
-      @XmlElement
-      private String popReceipt;
-
-      public String getPopReceipt() {
-         return popReceipt;
-      }
-
-      public void setPopReceipt(String popReceipt) {
-         this.popReceipt = popReceipt;
-      }
-
-      @XmlElement
-      private Date timeNextVisible;
-
-      public Date getTimeNextVisible() {
-         return timeNextVisible;
-      }
-
-      public void setTimeNextVisible(Date timeNextVisible) {
-         this.timeNextVisible = timeNextVisible;
-      }
-   }
-
-   @XmlElement
-   private QueueMessage queueMessage;
-
-   public QueueMessage getQueueMessage() {
+   public List<QueueMessage> getQueueMessage() {
       return queueMessage;
    }
 
-   public void setQueueMessage(QueueMessage queueMessage) {
+   public void setQueueMessage(List<QueueMessage> queueMessage) {
       this.queueMessage = queueMessage;
    }
 }
