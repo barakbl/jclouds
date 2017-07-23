@@ -39,8 +39,9 @@ public interface QueueApi extends Closeable {
 
    @Named("azure_storage_queue_list")
    @GET
-   @Path("?comp=list")
-   @JAXBResponseParser
+   //@Path("?comp=list")
+   @QueryParams(keys = "comp", values = "list")
+   @JAXBResponseParser//(ListQueueResponse.class)
    ListQueueResponse list();
 
    @Named("azure_storage_queue_delete")

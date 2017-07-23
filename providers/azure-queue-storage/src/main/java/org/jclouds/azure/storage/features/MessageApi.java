@@ -26,9 +26,6 @@ import javax.inject.Named;
 import javax.ws.rs.*;
 import java.io.Closeable;
 
-/**
- * Created by qiangzhang on 7/23/17.
- */
 public interface MessageApi extends Closeable {
 
    @Named("azure_storage_queue_get")

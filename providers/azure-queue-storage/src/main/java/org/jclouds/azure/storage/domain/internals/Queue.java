@@ -14,33 +14,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.azure.storage.domain.internals.QueueResponse;
+package org.jclouds.azure.storage.domain.internals;
 
-import org.jclouds.azure.storage.domain.internals.Queue;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import java.util.List;
 
-@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-@XmlRootElement(name = "EnumerationResults")
+
+//@XmlRootElement(name = "Queue")
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlJavaTypeAdapter(MyNormalizedStringAdapter.class)
 //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-public class ListQueueResponse {
-
-   @XmlElementWrapper(name="Queues")
-   @XmlElement(name = "Queue")
+public class Queue {
+   @XmlElement(name = "QueueName")
    //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-   private List<Queue> queues;
+   private String name;
 
-   public List<Queue> getQueues() {
-      return queues;
+   @XmlElement(name = "Url")
+   //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+   private String url;
+
+   public String getName() {
+      return name;
    }
 
-   public void setQueues(List<Queue> queues) {
-      this.queues = queues;
+   public void setName(String name) {
+      this.name = name;
    }
 
+   public String getUrl() {
+      return url;
+   }
+
+   public void setUrl(String url) {
+      this.url = url;
+   }
 }

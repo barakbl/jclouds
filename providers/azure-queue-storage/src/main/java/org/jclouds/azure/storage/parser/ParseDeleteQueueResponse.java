@@ -20,7 +20,9 @@ import com.google.common.base.Function;
 import org.jclouds.azure.storage.domain.internals.QueueResponse.DeleteQueueResponse;
 import org.jclouds.http.HttpResponse;
 
+import javax.inject.Singleton;
 
+@Singleton
 public class ParseDeleteQueueResponse implements Function<HttpResponse, DeleteQueueResponse> {
    @Override
    public DeleteQueueResponse apply(HttpResponse httpResponse) {

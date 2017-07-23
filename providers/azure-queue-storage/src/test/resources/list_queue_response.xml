@@ -14,5 +14,5 @@
             <Url>https://jcloudsazure.queue.core.windows.net/myqueue2</Url>
         </Queue>
     </Queues>
-    <NextMarker/>
+    <NextMarker />
 </EnumerationResults>
