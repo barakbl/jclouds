@@ -92,7 +92,7 @@ public class SharedKeyLiteAuthentication implements HttpRequestFilter {
 
    HttpRequest replaceAuthorizationHeader(HttpRequest request, String signature) {
       return request.toBuilder()
-              .replaceHeader(HttpHeaders.AUTHORIZATION, "SharedKeyLite " + creds.get().identity + ":" + signature)
+              .replaceHeader(HttpHeaders.AUTHORIZATION, "SharedKey " + creds.get().identity + ":" + signature)
               .build();
    }
 

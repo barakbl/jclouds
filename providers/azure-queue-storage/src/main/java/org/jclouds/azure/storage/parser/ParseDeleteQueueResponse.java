@@ -17,7 +17,7 @@
 package org.jclouds.azure.storage.parser;
 
 import com.google.common.base.Function;
-import org.jclouds.azure.storage.domain.DeleteQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.DeleteQueueResponse;
 import org.jclouds.http.HttpResponse;
 
 

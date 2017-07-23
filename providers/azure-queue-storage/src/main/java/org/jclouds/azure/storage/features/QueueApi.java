@@ -16,7 +16,9 @@
  */
 package org.jclouds.azure.storage.features;
 
-import org.jclouds.azure.storage.domain.*;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.CreateQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.DeleteQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.ListQueueResponse;
 import org.jclouds.azure.storage.filters.SharedKeyLiteAuthentication;
 import org.jclouds.azure.storage.parser.ParseCreateQueueResponse;
 import org.jclouds.azure.storage.parser.ParseDeleteQueueResponse;
@@ -27,7 +29,7 @@ import javax.ws.rs.*;
 import java.io.Closeable;
 
 @RequestFilters(SharedKeyLiteAuthentication.class)
-public interface QueueApi extends AbstractQueueApi {
+public interface QueueApi extends Closeable {
 
    @Named("azure_storage_queue_create")
    @PUT
@@ -37,7 +39,7 @@ public interface QueueApi extends AbstractQueueApi {
 
    @Named("azure_storage_queue_list")
    @GET
-   @Path("/?comp=list")
+   @Path("?comp=list")
    @JAXBResponseParser
    ListQueueResponse list();
 
@@ -47,18 +49,7 @@ public interface QueueApi extends AbstractQueueApi {
    @ResponseParser(ParseDeleteQueueResponse.class)
    DeleteQueueResponse delete(@PathParam("queueName") String queueName);
 
-   @Named("azure_storage_queue_get")
-   @GET
-   @Path("/{queueName}/messages")
-   @JAXBResponseParser
-   GetQueueResponse get(@PathParam("queueName") String queueName, @QueryParam("numofmessages") int numofmessages);
 
-   @Named("azure_storage_queue_post")
-   @POST
-   @Path("/{queueName}/messages")
-   @Payload("<QueueMessage><MessageText>{message-content}</MessageText></QueueMessage>")
-   @JAXBResponseParser
-   PostQueueResponse post(@PathParam("queueName") String queueName, @PayloadParam("message-content") String content);
 
    //@Named("azure_storage_queue_get_service_properties")
    //@GET

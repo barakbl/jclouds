@@ -1,7 +1,7 @@
 package org.jclouds.azure.storage.parser;
 
 import com.google.common.base.Function;
-import org.jclouds.azure.storage.domain.CreateQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.CreateQueueResponse;
 import org.jclouds.http.HttpResponse;
 
 import javax.inject.Singleton;

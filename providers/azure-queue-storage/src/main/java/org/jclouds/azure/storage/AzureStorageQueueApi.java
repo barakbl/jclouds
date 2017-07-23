@@ -17,6 +17,7 @@
 
 package org.jclouds.azure.storage;
 
+import org.jclouds.azure.storage.features.MessageApi;
 import org.jclouds.azure.storage.features.QueueApi;
 import org.jclouds.rest.annotations.Delegate;
 
@@ -26,4 +27,7 @@ public interface AzureStorageQueueApi extends Closeable {
 
    @Delegate
    QueueApi getQueueApi();
+
+   @Delegate
+   MessageApi getMessageApi();
 }

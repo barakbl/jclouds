@@ -43,7 +43,7 @@ final class AzureQueueTestUtils {
               new ExecutorServiceModule(MoreExecutors.sameThreadExecutor()));
 
       return ContextBuilder.newBuilder(provider)
-              .credentials("jclouds", "NH+KqygOYN9cy6jcYwoqY4P77F62TWzP2c8ef+0AmespWPhK0UW/HoH8vsqhC44qLTdNgnKSqyVzbtBTaZXEpQ==")
+              .credentials("jclouds", "nH+KqygOYN9cy6jcYwoqY4P77F62TWzP2c8ef+0AmespWPhK0UW/HoH8vsqhC44qLTdNgnKSqyVzbtBTaZXEpQ==")
               .endpoint(uri)
               .overrides(overrides)
               .modules(modules)

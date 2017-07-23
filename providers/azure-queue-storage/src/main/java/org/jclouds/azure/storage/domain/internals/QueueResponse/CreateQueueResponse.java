@@ -14,28 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.jclouds.azure.storage.domain.internals.QueueResponse;
 
-package org.jclouds.azure.storage.domain;
+public class CreateQueueResponse {
 
-import org.jclouds.azure.storage.domain.internals.QueueMessage;
+   private boolean success;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.*;
-
-
-@XmlRootElement(name = "QueueMessagesList")
-@XmlAccessorType(XmlAccessType.FIELD)
-public class PostQueueResponse {
-
-   @XmlElement(name = "QueueMessage")
-   private List<QueueMessage> queueMessage;
-
-   public List<QueueMessage> getQueueMessage() {
-      return queueMessage;
+   public boolean isSuccess() {
+      return success;
    }
 
-   public void setQueueMessage(List<QueueMessage> queueMessage) {
-      this.queueMessage = queueMessage;
+   public void setSuccess(boolean success) {
+      this.success = success;
    }
 }

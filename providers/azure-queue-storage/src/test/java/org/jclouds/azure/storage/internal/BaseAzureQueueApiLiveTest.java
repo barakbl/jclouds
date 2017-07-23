@@ -23,8 +23,15 @@ import org.jclouds.azure.storage.AzureStorageQueueApiMetadata;
 import org.jclouds.azure.storage.features.QueueApi;
 
 public class BaseAzureQueueApiLiveTest extends BaseApiLiveTest<AzureStorageQueueApi>{
+
+   static {
+      System.setProperty("azure-queue-storage.identity", "jcloudsazure");
+      System.setProperty("azure-queue-storage.credential", "nH+KqygOYN9cy6jcYwoqY4P77F62TWzP2c8ef+0AmespWPhK0UW/HoH8vsqhC44qLTdNgnKSqyVzbtBTaZXEpQ==");
+
+   }
+
    protected BaseAzureQueueApiLiveTest() {
-      provider = "AzureQueue";
+      provider = "azure-queue-storage";
    }
 
    @Override

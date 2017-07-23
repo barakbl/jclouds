@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.azure.storage.domain;
+package org.jclouds.azure.storage.domain.internals.QueueResponse;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;

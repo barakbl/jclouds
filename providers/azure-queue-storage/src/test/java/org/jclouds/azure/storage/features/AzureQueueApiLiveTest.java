@@ -17,36 +17,26 @@
 package org.jclouds.azure.storage.features;
 
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.hash.Hashing;
-import com.google.common.io.ByteSource;
-import org.jclouds.azure.storage.AzureStorageQueueApi;
-import org.jclouds.azure.storage.domain.CreateQueueResponse;
-import org.jclouds.azure.storage.domain.DeleteQueueResponse;
-import org.jclouds.azure.storage.domain.GetQueueResponse;
-import org.jclouds.azure.storage.domain.ListQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.CreateQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.DeleteQueueResponse;
+import org.jclouds.azure.storage.domain.internals.QueueResponse.ListQueueResponse;
 import org.jclouds.azure.storage.internal.BaseAzureQueueApiLiveTest;
-import org.jclouds.io.Payload;
-import org.jclouds.io.Payloads;
-import org.jclouds.utils.TestUtils;
 import org.testng.annotations.Test;
-
-import java.util.Map;
-import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
-   private static final String queueName= "myqueue";
+   private static final String queueName= "myqueue-123";
 
    @Test(groups = "live")
    public void testCreate() {
       QueueApi queueApi= api.getQueueApi();
       CreateQueueResponse response = queueApi.create(queueName);
       try{
-         assertThat(response).isEqualTo(201);
-      }finally {
-         queueApi.delete("1");
+         assertThat(response.isSuccess()).isEqualTo(true);
+      }
+      finally {
+         queueApi.delete(queueName);
       }
    }
 
@@ -54,8 +44,8 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
    public void testDelete() {
       QueueApi queueApi= api.getQueueApi();
       queueApi.create(queueName);
-      DeleteQueueResponse response = queueApi.delete("1");
-      assertThat(response).isEqualTo(204);
+      DeleteQueueResponse response = queueApi.delete(queueName);
+      assertThat(response.isSuccess()).isEqualTo(true);
    }
 
    @Test(groups = "live")
@@ -65,22 +55,27 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
       try {
          boolean found = false;
          ListQueueResponse queues = queueApi.list();
+         //for (ListQueueResponse.Queue queue : queues.getQueues()) {
+            if (queues.getQueues().contains(queueName)/*.getName().equals(queueName)*/) {
+               found = true;
+            }
+         //}
          assertThat(found).isTrue();
       } finally {
-         queueApi.delete("1");
+         queueApi.delete(queueName);
       }
    }
 
-   @Test(groups = "live")
-   public void testGet() {
-      QueueApi queueApi= api.getQueueApi();
-      queueApi.create(queueName);
-      try {
-         boolean found = false;
-         GetQueueResponse queues = queueApi.get("myqueue", 1);
-         assertThat(found).isTrue();
-      } finally {
-         queueApi.delete("1");
-      }
-   }
+//   @Test(groups = "live")
+//   public void testGet() {
+//      QueueApi queueApi= api.getQueueApi();
+//      queueApi.create(queueName);
+//      try {
+//         boolean found = false;
+//         GetQueueResponse queues = queueApi.get("myqueue", 1);
+//         assertThat(found).isTrue();
+//      } finally {
+//         queueApi.delete("1");
+//      }
+//   }
 }
