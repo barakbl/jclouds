@@ -29,10 +29,11 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
 public class Queue {
-   @XmlElement(name = "QueueName")
+   @XmlElement(name = "Name")
    //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
    private String name;
 
+   // TODO: remove?
    @XmlElement(name = "Url")
    //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
    private String url;

@@ -2,15 +2,15 @@
 <EnumerationResults AccountName="https://jcloudsazure.queue.core.windows.net/">
     <Queues>
         <Queue>
-            <QueueName>myqueue</QueueName>
+            <Name>myqueue</Name>
             <Url>https://jcloudsazure.queue.core.windows.net/myqueue</Url>
         </Queue>
         <Queue>
-            <QueueName>myqueue1</QueueName>
+            <Name>myqueue1</Name>
             <Url>https://jcloudsazure.queue.core.windows.net/myqueue1</Url>
         </Queue>
         <Queue>
-            <QueueName>myqueue2</QueueName>
+            <Name>myqueue2</Name>
             <Url>https://jcloudsazure.queue.core.windows.net/myqueue2</Url>
         </Queue>
     </Queues>
