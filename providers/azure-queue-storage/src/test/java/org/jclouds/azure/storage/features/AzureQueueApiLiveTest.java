@@ -26,14 +26,16 @@ import org.testng.annotations.Test;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
-   private static final String queueName= "myqueue";
+   private String queueName;
 
    @Test(groups = "live")
    public void testCreate() {
+      queueName = getQueueName();
       QueueApi queueApi= api.getQueueApi();
       CreateQueueResponse response = queueApi.create(queueName);
       try{
@@ -46,6 +48,7 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
 
    @Test(groups = "live")
    public void testDelete() {
+      queueName = getQueueName();
       QueueApi queueApi= api.getQueueApi();
       queueApi.create(queueName);
       DeleteQueueResponse response = queueApi.delete(queueName);
@@ -73,6 +76,7 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
 
 //   @Test(groups = "live")
 //   public void testGet() {
+//      queueName = getQueueName();
 //      QueueApi queueApi= api.getQueueApi();
 //      queueApi.create(queueName);
 //      try {
@@ -83,4 +87,8 @@ public final class AzureQueueApiLiveTest extends BaseAzureQueueApiLiveTest{
 //         queueApi.delete("1");
 //      }
 //   }
+
+   private static String getQueueName() {
+      return "myqueue" + new Random().nextInt();
+   }
 }
