@@ -58,7 +58,8 @@ public class AzureStorageQueueApiMetadata extends BaseHttpApiMetadata {
                  .documentation(URI.create("https://docs.microsoft.com/en-us/rest/api/storageservices/queue-service-rest-api"))
                  .defaultProperties(AzureStorageQueueApiMetadata.defaultProperties())
                  .defaultEndpoint("https://${jclouds.identity}.queue.core.windows.net/")
-                 .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class));
+                 .defaultModules(ImmutableSet.<Class<? extends Module>>of(AzureStorageQueueModule.class))
+                 .version("2016-05-31");
       }
 
       @Override

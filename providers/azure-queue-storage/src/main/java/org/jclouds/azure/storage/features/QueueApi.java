@@ -28,6 +28,7 @@ import javax.inject.Named;
 import javax.ws.rs.*;
 import java.io.Closeable;
 
+@Headers(keys = "x-ms-version", values = "{jclouds.api-version}")
 @RequestFilters(SharedKeyLiteAuthentication.class)
 public interface QueueApi extends Closeable {
 
