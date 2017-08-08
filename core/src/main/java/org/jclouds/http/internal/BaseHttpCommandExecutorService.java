@@ -80,7 +80,7 @@ public abstract class BaseHttpCommandExecutorService<Q> implements HttpCommandEx
    }
 
    @Override
-   public HttpResponse invoke(HttpCommand command) {
+   public Object invoke(HttpCommand command) {
       HttpResponse response = null;
       for (;;) {
          HttpRequest request = command.getCurrentRequest();
@@ -95,6 +95,11 @@ public abstract class BaseHttpCommandExecutorService<Q> implements HttpCommandEx
             wirePayloadIfEnabled(wire, request);
             utils.logRequest(headerLog, request, ">>");
             nativeRequest = convert(request);
+            if (request.returnOutputStream()) {
+               StreamingOutputStream outputStream = prepareStreamingRequest(nativeRequest);
+               nativeRequest = null; // response took ownership of streams
+               return outputStream;
+            }
             response = invoke(nativeRequest);
 
             logger.debug("Receiving response %s: %s", request.hashCode(), response.getStatusLine());
@@ -170,6 +175,10 @@ public abstract class BaseHttpCommandExecutorService<Q> implements HttpCommandEx
    protected abstract Q convert(HttpRequest request) throws IOException, InterruptedException;
 
    protected abstract HttpResponse invoke(Q nativeRequest) throws IOException, InterruptedException;
+
+   protected StreamingOutputStream prepareStreamingRequest(Q nativeRequest) throws IOException {
+      throw new UnsupportedOperationException("streaming not implemented");
+   }
 
    protected abstract void cleanup(Q nativeRequest);
 

@@ -14,16 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jclouds.http;
+package org.jclouds.http.functions;
+
+import javax.inject.Singleton;
+
+import org.jclouds.http.HttpResponse;
+import org.jclouds.io.ETagOutputStream;
+
+import com.google.common.base.Function;
 
 /**
- * Capable of invoking http commands.
+ * Simply returns the OutputStream of the response
  */
-public interface HttpCommandExecutorService {
-
-   /**
-    * Returns a {@code HttpResponse} from the server which responded to the
-    * {@code command}.
-    */
-   Object invoke(HttpCommand command);
+@Singleton
+public final class ReturnOutputStream implements Function<HttpResponse, ETagOutputStream> {
+   @Override
+   public ETagOutputStream apply(HttpResponse from) {
+      // TODO: throw exception instead?
+      return null;
+   }
 }

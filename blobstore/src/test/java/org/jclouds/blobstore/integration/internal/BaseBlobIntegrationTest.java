@@ -72,6 +72,7 @@ import org.jclouds.http.HttpResponse;
 import org.jclouds.http.HttpResponseException;
 import org.jclouds.io.ByteStreams2;
 import org.jclouds.io.ContentMetadataBuilder;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.io.Payloads;
 import org.jclouds.io.payloads.ByteSourcePayload;
@@ -1440,6 +1441,42 @@ public class BaseBlobIntegrationTest extends BaseBlobStoreIntegrationTest {
       try {
          blobStore.copyBlob(container, "blob", container, "blob2",
                CopyOptions.builder().userMetadata(ImmutableMap.of("x", "1")).build());
+      } finally {
+         returnContainer(container);
+      }
+   }
+
+   @Test
+   public void testPutBlobStreaming() throws Exception {
+      ByteSource byteSource = createTestInput(64 * 1024);
+      BlobStore blobStore = view.getBlobStore();
+
+      String container = getContainerName();
+      try {
+         String name = "blob-name";
+         Blob blob = blobStore.blobBuilder(name)
+               // TODO: needed?
+               .payload(new byte[0])
+               .contentLength(byteSource.size())
+               .build();
+
+         ETagOutputStream etos = blobStore.putBlobStreaming(container, blob, new PutOptions());
+         try {
+            ByteStreams.copy(byteSource.openStream(), etos);
+         } finally {
+            etos.close();
+         }
+         assertThat(etos.getETag()).isNotNull();
+
+         blob = blobStore.getBlob(container, name);
+         InputStream is = blob.getPayload().openStream();
+         try {
+            assertThat(is).hasContentEqualTo(byteSource.openStream());
+         } finally {
+            is.close();
+         }
+
+         // TODO: content and user metadata
       } finally {
          returnContainer(container);
       }

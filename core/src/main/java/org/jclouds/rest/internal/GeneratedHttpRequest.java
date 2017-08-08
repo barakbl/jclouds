@@ -60,7 +60,7 @@ public final class GeneratedHttpRequest extends HttpRequest {
       }
 
       public GeneratedHttpRequest build() {
-         return new GeneratedHttpRequest(method, endpoint, headers.build(), payload, filters.build(), invocation,
+         return new GeneratedHttpRequest(method, endpoint, headers.build(), payload, filters.build(), returnOutputStream, invocation,
                caller);
       }
 
@@ -78,9 +78,9 @@ public final class GeneratedHttpRequest extends HttpRequest {
    private final Optional<Invocation> caller;
 
    protected GeneratedHttpRequest(String method, URI endpoint, Multimap<String, String> headers,
-         @Nullable Payload payload, Iterable<HttpRequestFilter> filters, Invocation invocation,
+         @Nullable Payload payload, Iterable<HttpRequestFilter> filters, boolean returnOutputStream, Invocation invocation,
          Optional<Invocation> caller) {
-      super(method, endpoint, headers, payload, filters);
+      super(method, endpoint, headers, payload, filters, returnOutputStream);
       this.invocation = checkNotNull(invocation, "invocation");
       this.caller = checkNotNull(caller, "caller");
    }

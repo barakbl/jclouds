@@ -61,6 +61,7 @@ public class HttpRequest extends HttpMessage {
       protected String method;
       protected URI endpoint;
       protected ImmutableList.Builder<HttpRequestFilter> filters = ImmutableList.<HttpRequestFilter>builder();
+      protected boolean returnOutputStream;
    
       /** 
        * @see HttpRequest#getMethod()
@@ -215,15 +216,21 @@ public class HttpRequest extends HttpMessage {
          return self();
       }
 
+      public T returnOutputStream(boolean returnOutputStream) {
+         this.returnOutputStream = returnOutputStream;
+         return self();
+      }
+
       public HttpRequest build() {
-         return new HttpRequest(method, endpoint, headers.build(), payload, filters.build());
+         return new HttpRequest(method, endpoint, headers.build(), payload, filters.build(), returnOutputStream);
       }
       
       public T fromHttpRequest(HttpRequest in) {
          return super.fromHttpMessage(in)
                      .method(in.getMethod())
                      .endpoint(in.getEndpoint())
-                     .filters(in.getFilters());
+                     .filters(in.getFilters())
+                     .returnOutputStream(in.returnOutputStream);
       }
    }
 
@@ -237,14 +244,16 @@ public class HttpRequest extends HttpMessage {
    private final String method;
    private final URI endpoint;
    private final List<HttpRequestFilter> filters;
+   private final boolean returnOutputStream;
 
    protected HttpRequest(String method, URI endpoint, Multimap<String, String> headers, @Nullable Payload payload,
-         Iterable<HttpRequestFilter> filters) {
+         Iterable<HttpRequestFilter> filters, boolean returnOutputStream) {
       super(headers, payload);
       this.method = checkNotNull(method, "method");
       this.endpoint = checkNotNull(endpoint, "endpoint");
       checkArgument(endpoint.getHost() != null, "endpoint.getHost() is null for %s", endpoint);
       this.filters = ImmutableList.<HttpRequestFilter> copyOf(checkNotNull(filters, "filters"));
+      this.returnOutputStream = returnOutputStream;
    }
 
    public String getRequestLine() {
@@ -267,6 +276,10 @@ public class HttpRequest extends HttpMessage {
 
    public List<HttpRequestFilter> getFilters() {
       return filters;
+   }
+
+   public boolean returnOutputStream() {
+      return returnOutputStream;
    }
    
    @Override

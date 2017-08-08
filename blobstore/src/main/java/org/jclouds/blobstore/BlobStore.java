@@ -37,6 +37,7 @@ import org.jclouds.blobstore.options.GetOptions;
 import org.jclouds.blobstore.options.ListContainerOptions;
 import org.jclouds.blobstore.options.PutOptions;
 import org.jclouds.domain.Location;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.javax.annotation.Nullable;
 
@@ -242,6 +243,8 @@ public interface BlobStore {
     *            if the container doesn't exist
     */
    String putBlob(String container, Blob blob, PutOptions options);
+
+   ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions options);
 
    /**
     * Copy blob from one container to another.  Some providers implement this

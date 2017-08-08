@@ -44,6 +44,7 @@ import org.jclouds.blobstore.options.GetOptions;
 import org.jclouds.blobstore.options.ListContainerOptions;
 import org.jclouds.blobstore.options.PutOptions;
 import org.jclouds.domain.Location;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 
 public abstract class ForwardingBlobStore extends ForwardingObject
@@ -167,6 +168,11 @@ public abstract class ForwardingBlobStore extends ForwardingObject
    public String putBlob(String containerName, Blob blob,
          PutOptions putOptions) {
       return delegate().putBlob(containerName, blob, putOptions);
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(String containerName, Blob blob, PutOptions options) {
+      return delegate().putBlobStreaming(containerName, blob, options);
    }
 
    @Override

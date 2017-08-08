@@ -21,6 +21,7 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 import static com.google.common.base.Throwables.propagate;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
+import java.io.OutputStream;
 import java.util.concurrent.Callable;
 
 import javax.annotation.Resource;
@@ -88,7 +89,14 @@ public class InvokeHttpMethod implements Function<Invocation, Object> {
 
       logger.debug(">> invoking %s", commandName);
       try {
-         return transformer.apply(http.invoke(command));
+         Object object = http.invoke(command);
+         if (object instanceof OutputStream) {
+            return object;
+         }
+         if (object instanceof HttpResponse) {
+            return transformer.apply((HttpResponse) object);
+         }
+         return object;
       } catch (Throwable t) {
          try {
             return fallback.createOrPropagate(t);
@@ -158,7 +166,11 @@ public class InvokeHttpMethod implements Function<Invocation, Object> {
 
       @Override
       public Object call() throws Exception {
-         return transformer.apply(http.invoke(command));
+         Object object = http.invoke(command);
+         if (object instanceof HttpResponse) {
+            return transformer.apply((HttpResponse) object);
+         }
+         return object;
       }
 
       @Override

@@ -21,6 +21,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -42,6 +43,7 @@ import org.jclouds.http.functions.ParseURIFromListOrLocationHeaderIf20x;
 import org.jclouds.http.functions.ParseXMLWithJAXB;
 import org.jclouds.http.functions.ReleasePayloadAndReturn;
 import org.jclouds.http.functions.ReturnInputStream;
+import org.jclouds.http.functions.ReturnOutputStream;
 import org.jclouds.http.functions.ReturnStringIf2xx;
 import org.jclouds.http.functions.ReturnTrueIf2xx;
 import org.jclouds.http.functions.UnwrapOnlyJsonValue;
@@ -118,6 +120,8 @@ public class TransformerForRequest implements Function<HttpRequest, Function<Htt
             return Key.get(ReturnTrueIf2xx.class);
          } else if (rawReturnType.equals(InputStream.class)) {
             return Key.get(ReturnInputStream.class);
+         } else if (rawReturnType.equals(OutputStream.class)) {
+            return Key.get(ReturnOutputStream.class);
          } else if (rawReturnType.equals(HttpResponse.class)) {
             return Key.get(Class.class.cast(IdentityFunction.class));
          } else if (acceptHeaders.contains(APPLICATION_JSON)) {

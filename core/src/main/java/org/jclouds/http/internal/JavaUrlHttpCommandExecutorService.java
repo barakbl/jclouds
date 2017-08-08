@@ -29,6 +29,7 @@ import static org.jclouds.util.Closeables2.closeQuietly;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -168,7 +169,11 @@ public class JavaUrlHttpCommandExecutorService extends BaseHttpCommandExecutorSe
                } else {
                   setFixedLengthStreamingMode(connection, length);
                }
-               writePayloadToConnection(payload, length, connection);
+               if (request.returnOutputStream()) {
+                  connection.setDoOutput(true);
+               } else {
+                  writePayloadToConnection(payload, length, connection);
+               }
             } else {
                writeNothing(connection);
             }
@@ -302,6 +307,11 @@ public class JavaUrlHttpCommandExecutorService extends BaseHttpCommandExecutorSe
       } finally {
          closeQuietly(is);
       }
+   }
+
+   @Override
+   protected StreamingOutputStream prepareStreamingRequest(HttpURLConnection connection) throws IOException {
+      return new StreamingOutputStream(connection, connection.getOutputStream());
    }
 
    @Override

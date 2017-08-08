@@ -100,7 +100,7 @@ public class TrackingJavaUrlHttpCommandExecutorService extends JavaUrlHttpComman
    }
 
    @Override
-   public HttpResponse invoke(HttpCommand command) {
+   public Object invoke(HttpCommand command) {
       commandsInvoked.add(command);
       return super.invoke(command);
    }

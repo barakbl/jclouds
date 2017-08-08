@@ -75,6 +75,7 @@ import org.jclouds.http.filters.StripExpectHeader;
 import org.jclouds.http.options.HttpRequestOptions;
 import org.jclouds.http.utils.QueryValue;
 import org.jclouds.io.ContentMetadataCodec;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.io.PayloadEnclosing;
 import org.jclouds.io.Payloads;
@@ -319,7 +320,9 @@ public class RestAnnotationProcessor implements Function<Invocation, HttpRequest
       List<? extends Part> parts = getParts(invocation, ImmutableMultimap.<String, Object> builder()
             .putAll(tokenValues).putAll(formParams).build());
 
-      if (!parts.isEmpty()) {
+      if (invocation.getInvokable().getReturnType().getRawType().equals(ETagOutputStream.class)) {
+         requestBuilder.returnOutputStream(true);
+      } else if (!parts.isEmpty()) {
          if (!formParams.isEmpty()) {
             parts = newLinkedList(concat(transform(formParams.entries(), ENTRY_TO_PART), parts));
          }
@@ -361,6 +364,7 @@ public class RestAnnotationProcessor implements Function<Invocation, HttpRequest
       request = stripExpectHeaderIfContentZero(request);
 
       utils.checkRequestHasRequiredProperties(request);
+
       return request;
    }
 
