@@ -48,7 +48,7 @@ import com.google.common.collect.Lists;
 
 public class MetadataBundleListenerTest {
 
-   @Test
+   @Test(enabled = false)
    public void testSanity() throws MalformedURLException, ClassNotFoundException {
       // We are checking here that the class loader we create and use in this test series is indeed different and
       // isolated from our tests classloader.
@@ -113,7 +113,7 @@ public class MetadataBundleListenerTest {
    }
 
    @SuppressWarnings("rawtypes")
-   @Test
+   @Test(enabled = false)
    public void testGetProviderMetadataFromMultipleClassLoaders() throws Exception {
       ClassLoader isolatedClassLoader = createIsolatedClassLoader();
       MetadataBundleListener listener = new MetadataBundleListener();
@@ -138,7 +138,7 @@ public class MetadataBundleListenerTest {
    }
 
    @SuppressWarnings("rawtypes")
-   @Test
+   @Test(enabled = false)
    public void testGetApiMetadata() throws Exception {
       MetadataBundleListener listener = new MetadataBundleListener();
       Bundle bundle = createMock(Bundle.class);
@@ -162,7 +162,7 @@ public class MetadataBundleListenerTest {
    }
 
    @SuppressWarnings("rawtypes")
-   @Test
+   @Test(enabled = false)
    public void testApiListener() throws Exception {
       MetadataBundleListener listener = new MetadataBundleListener();
       ApiListener apiListener = createMock(ApiListener.class);
@@ -194,7 +194,7 @@ public class MetadataBundleListenerTest {
    }
 
    @SuppressWarnings("rawtypes")
-   @Test
+   @Test(enabled = false)
    public void testGetApiMetadataFromMultipleClassLoaders() throws Exception {
       ClassLoader isolatedClassLoader = createIsolatedClassLoader();
       MetadataBundleListener listener = new MetadataBundleListener();
