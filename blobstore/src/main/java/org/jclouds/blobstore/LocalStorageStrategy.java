@@ -25,7 +25,9 @@ import org.jclouds.blobstore.domain.ContainerAccess;
 import org.jclouds.blobstore.domain.StorageMetadata;
 import org.jclouds.blobstore.options.CreateContainerOptions;
 import org.jclouds.blobstore.options.ListContainerOptions;
+import org.jclouds.blobstore.options.PutOptions;
 import org.jclouds.domain.Location;
+import org.jclouds.io.ETagOutputStream;
 
 /**
  * Strategy for local operations related to container and blob
@@ -122,6 +124,8 @@ public interface LocalStorageStrategy {
      * @throws IOException
      */
     String putBlob(String containerName, Blob blob) throws IOException;
+
+    ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions options);
 
     /**
      * Remove blob named by the given key

@@ -19,6 +19,7 @@ package org.jclouds.blobstore;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.io.BaseEncoding.base16;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
@@ -35,14 +36,17 @@ import org.jclouds.blobstore.domain.ContainerAccess;
 import org.jclouds.blobstore.domain.MutableStorageMetadata;
 import org.jclouds.blobstore.domain.StorageMetadata;
 import org.jclouds.blobstore.domain.StorageType;
+import org.jclouds.blobstore.domain.internal.BlobImpl;
 import org.jclouds.blobstore.domain.internal.MutableStorageMetadataImpl;
 import org.jclouds.blobstore.options.CreateContainerOptions;
 import org.jclouds.blobstore.options.ListContainerOptions;
+import org.jclouds.blobstore.options.PutOptions;
 import org.jclouds.blobstore.util.BlobStoreUtils;
 import org.jclouds.date.DateService;
 import org.jclouds.domain.Location;
 import org.jclouds.http.HttpUtils;
 import org.jclouds.io.ContentMetadataCodec;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.MutableContentMetadata;
 import org.jclouds.io.Payload;
 import org.jclouds.io.Payloads;
@@ -187,6 +191,22 @@ public class TransientStorageStrategy implements LocalStorageStrategy {
       map.put(blobName, newBlob);
       containerToBlobAccess.get(containerName).put(blobName, BlobAccess.PRIVATE);
       return base16().lowerCase().encode(actualHashCode.asBytes());
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(final String container, final Blob blob, final PutOptions options) {
+      // TODO: options
+      final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      return new ETagOutputStream(baos) {
+         @Override
+         public void close() throws IOException {
+            super.close();
+            BlobImpl impl = new BlobImpl(blob.getMetadata());
+            impl.setPayload(baos.toByteArray());
+            String eTag = putBlob(container, impl);
+            setETag(eTag);
+         }
+      };
    }
 
    @Override

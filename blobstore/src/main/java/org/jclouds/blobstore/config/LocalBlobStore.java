@@ -83,6 +83,7 @@ import org.jclouds.http.HttpUtils;
 import org.jclouds.io.ByteStreams2;
 import org.jclouds.io.ContentMetadata;
 import org.jclouds.io.ContentMetadataCodec;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.io.payloads.InputStreamPayload;
 import org.jclouds.logging.Logger;
@@ -528,6 +529,11 @@ public final class LocalBlobStore implements BlobStore {
    @Override
    public String putBlob(String containerName, Blob blob) {
       return putBlob(containerName, blob, PutOptions.NONE);
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions options) {
+      return storageStrategy.putBlobStreaming(container, blob, options);
    }
 
    @Override
