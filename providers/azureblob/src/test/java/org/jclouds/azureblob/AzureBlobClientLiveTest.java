@@ -26,6 +26,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.net.URI;
 import java.security.SecureRandom;
@@ -68,6 +70,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.hash.Hashing;
 import com.google.common.io.BaseEncoding;
 import com.google.common.io.ByteSource;
+import com.google.common.io.ByteStreams;
 
 @Test(groups = "live", singleThreaded = true)
 public class AzureBlobClientLiveTest extends BaseBlobStoreIntegrationTest {
@@ -384,6 +387,40 @@ public class AzureBlobClientLiveTest extends BaseBlobStoreIntegrationTest {
       assertEquals(1, blocks.getBlocks().get(2).getContentLength());
 
       getApi().deleteContainer(blockContainer);
+   }
+
+   @Test
+   public void testPutBlobStreaming() throws Exception {
+      ByteSource byteSource = TestUtils.randomByteSource().slice(0, 1024);
+
+      String blockContainer = CONTAINER_PREFIX + containerIndex.incrementAndGet();
+      AzureBlobClient client = getApi();
+
+      client.createContainer(blockContainer);
+      try {
+         AzureBlob object = client.newBlob();
+         object.getProperties().setName("object");
+         object.setPayload(ByteSource.empty());  // TODO: should not have to provide a fake payload
+         object.getPayload().getContentMetadata().setContentLength(byteSource.size());
+         OutputStream os = client.putBlobStreaming(blockContainer, object);
+         assertThat(os).isNotNull();
+         try {
+            ByteStreams.copy(byteSource.openStream(), os);
+         } finally {
+            os.close();
+         }
+
+         object = getApi().getBlob(blockContainer, "object");
+         assertThat(object).isNotNull();
+         InputStream is = object.getPayload().openStream();
+         try {
+            assertThat(is).hasContentEqualTo(byteSource.openStream());
+         } finally {
+            is.close();
+         }
+      } finally {
+         client.deleteContainer(blockContainer);
+      }
    }
 
    @Test

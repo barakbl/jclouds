@@ -73,6 +73,7 @@ import org.jclouds.collect.Memoized;
 import org.jclouds.domain.Location;
 import org.jclouds.http.options.GetOptions;
 import org.jclouds.io.ContentMetadata;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.MutableContentMetadata;
 import org.jclouds.io.PayloadSlicer;
 
@@ -244,6 +245,16 @@ public class AzureBlobStore extends BaseBlobStore {
          sync.setBlobTier(container, blob.getMetadata().getName(), AccessTier.fromTier(tier));
       }
       return eTag;
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions options) {
+      // TODO: multipart
+      // TODO: options
+      if (options.getBlobAccess() != BlobAccess.PRIVATE) {
+         throw new UnsupportedOperationException("blob access not supported by Azure");
+      }
+      return sync.putBlobStreaming(container, blob2AzureBlob.apply(blob));
    }
 
    @Override

@@ -72,8 +72,10 @@ import org.jclouds.blobstore.BlobStoreFallbacks.NullOnContainerNotFound;
 import org.jclouds.blobstore.BlobStoreFallbacks.NullOnKeyNotFound;
 import org.jclouds.blobstore.binders.BindMapToHeadersWithPrefix;
 import org.jclouds.http.functions.ParseETagHeader;
+import org.jclouds.http.functions.ReturnOutputStream;
 import org.jclouds.http.options.GetOptions;
 import org.jclouds.io.ContentMetadata;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.rest.annotations.BinderParam;
 import org.jclouds.rest.annotations.Fallback;
@@ -337,6 +339,14 @@ public interface AzureBlobClient extends Closeable {
          @PathParam("name") @ParamParser(BlobName.class) @BinderParam(BindAzureBlobMetadataToRequest.class)
          AzureBlob object);
 
+   @Named("PutBlob")
+   @PUT
+   @Path("{container}/{name}")
+   @Headers(keys = EXPECT, values = "100-continue")
+   @ResponseParser(ReturnOutputStream.class)
+   ETagOutputStream putBlobStreaming(@PathParam("container") @ParamValidators(ContainerNameValidator.class) String container,
+         @PathParam("name") @ParamParser(BlobName.class) @BinderParam(BindAzureBlobMetadataToRequest.class)
+         AzureBlob object);
 
    /**
     * The Get Blob operation reads or downloads a blob from the system, including its metadata and
