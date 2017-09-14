@@ -51,6 +51,7 @@ import org.jclouds.collect.Memoized;
 import org.jclouds.domain.Location;
 import org.jclouds.http.options.GetOptions;
 import org.jclouds.io.ContentMetadata;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.io.PayloadSlicer;
 import org.jclouds.s3.S3Client;
@@ -269,6 +270,17 @@ public class S3BlobStore extends BaseBlobStore {
       // TODO: S3 does not allow putObject if Tier.ARCHIVE.  Instead, copyBlob
       // after putBlob when the former supports tiers.
       return sync.putObject(container, blob2Object.apply(blob), options);
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions overrides) {
+      // TODO: multipart?
+
+      PutObjectOptions options = new PutObjectOptions();
+      if (overrides.getBlobAccess() == BlobAccess.PUBLIC_READ) {
+         options = options.withAcl(CannedAccessPolicy.PUBLIC_READ);
+      }
+      return sync.putObjectStreaming(container, blob2Object.apply(blob), options);
    }
 
    @Override

@@ -43,7 +43,9 @@ import org.jclouds.blobstore.BlobStoreFallbacks.ThrowContainerNotFoundOn404;
 import org.jclouds.blobstore.BlobStoreFallbacks.ThrowKeyNotFoundOn404;
 import org.jclouds.blobstore.attr.BlobScope;
 import org.jclouds.http.functions.ParseETagHeader;
+import org.jclouds.http.functions.ReturnOutputStream;
 import org.jclouds.http.options.GetOptions;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.Payload;
 import org.jclouds.javax.annotation.Nullable;
 import org.jclouds.rest.annotations.BinderParam;
@@ -268,6 +270,16 @@ public interface S3Client extends Closeable {
    @Headers(keys = EXPECT, values = "100-continue")
    @ResponseParser(ParseETagHeader.class)
    String putObject(@Bucket @EndpointParam(parser = AssignCorrectHostnameForBucket.class) @BinderParam(
+         BindAsHostPrefixIfConfigured.class) @ParamValidators(BucketNameValidator.class) String bucketName,
+         @PathParam("key") @ParamParser(ObjectKey.class) @BinderParam(BindS3ObjectMetadataToRequest.class)
+         S3Object object, PutObjectOptions... options);
+
+   @Named("PutObject")
+   @PUT
+   @Path("/{key}")
+   @Headers(keys = EXPECT, values = "100-continue")
+   @ResponseParser(ReturnOutputStream.class)
+   ETagOutputStream putObjectStreaming(@Bucket @EndpointParam(parser = AssignCorrectHostnameForBucket.class) @BinderParam(
          BindAsHostPrefixIfConfigured.class) @ParamValidators(BucketNameValidator.class) String bucketName,
          @PathParam("key") @ParamParser(ObjectKey.class) @BinderParam(BindS3ObjectMetadataToRequest.class)
          S3Object object, PutObjectOptions... options);
