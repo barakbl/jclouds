@@ -45,6 +45,8 @@ import org.jclouds.b2.domain.UploadUrlResponse;
 import org.jclouds.b2.filters.RequestAuthorization;
 import org.jclouds.b2.filters.RequestAuthorizationDownload;
 import org.jclouds.b2.functions.ParseB2ObjectFromResponse;
+import org.jclouds.http.functions.ReturnOutputStream;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.rest.annotations.Fallback;
 import org.jclouds.rest.annotations.MapBinder;
 import org.jclouds.rest.annotations.PayloadParam;
@@ -68,6 +70,13 @@ public interface ObjectApi {
    @MapBinder(UploadFileBinder.class)
    @Consumes(APPLICATION_JSON)
    UploadFileResponse uploadFile(@PayloadParam("uploadUrl") UploadUrlResponse uploadUrl, @PayloadParam("fileName") String fileName, @Nullable @PayloadParam("contentSha1") String contentSha1, @PayloadParam("fileInfo") Map<String, String> fileInfo, Payload payload);
+
+   @Named("b2_upload_file")
+   @POST
+   @MapBinder(UploadFileBinder.class)
+   @Consumes(APPLICATION_JSON)
+   @ResponseParser(ReturnOutputStream.class)
+   ETagOutputStream uploadFileStreaming(@PayloadParam("uploadUrl") UploadUrlResponse uploadUrl, @PayloadParam("fileName") String fileName, @Nullable @PayloadParam("contentSha1") String contentSha1, @PayloadParam("fileInfo") Map<String, String> fileInfo, Payload payload);
 
    @Named("b2_delete_file_version")
    @POST

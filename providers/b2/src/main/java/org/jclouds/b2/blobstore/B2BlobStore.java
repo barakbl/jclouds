@@ -72,6 +72,7 @@ import org.jclouds.collect.Memoized;
 import org.jclouds.domain.Location;
 import org.jclouds.io.ContentMetadata;
 import org.jclouds.io.ContentMetadataBuilder;
+import org.jclouds.io.ETagOutputStream;
 import org.jclouds.io.MutableContentMetadata;
 import org.jclouds.io.Payload;
 import org.jclouds.io.PayloadSlicer;
@@ -247,6 +248,31 @@ public final class B2BlobStore extends BaseBlobStore {
 
          return uploadFile.contentSha1();  // B2 does not support ETag, fake it with SHA-1
       }
+   }
+
+   @Override
+   public ETagOutputStream putBlobStreaming(String container, Blob blob, PutOptions options) {
+      if (options.getBlobAccess() != BlobAccess.PRIVATE) {
+         throw new UnsupportedOperationException("B2 only supports private access blobs");
+      }
+
+      if (options.isMultipart()) {
+         throw new UnsupportedOperationException("Multipart not supported");
+      }
+
+      String name = blob.getMetadata().getName();
+
+      // B2 versions all files so we store the original fileId to delete it after the upload succeeds
+      // TODO: do this after upload succeeds
+      String oldFileId = getFileId(container, name);
+      if (oldFileId != null) {
+         api.getObjectApi().deleteFileVersion(name, oldFileId);
+      }
+
+      Bucket bucket = getBucket(container);
+      UploadUrlResponse uploadUrl = api.getObjectApi().getUploadUrl(bucket.bucketId());
+      // TODO: this does not return ETag
+      return api.getObjectApi().uploadFileStreaming(uploadUrl, name, null, blob.getMetadata().getUserMetadata(), blob.getPayload());
    }
 
    @Override
